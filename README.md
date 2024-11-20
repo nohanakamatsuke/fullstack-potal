@@ -39,8 +39,8 @@ composer require laravel/sail --dev
 ### 4. Docker イメージのビルドと起動
 
 ```bash
-docker-compose build
-docker-compose up -d
+docker　compose build
+docker　compose up -d
 ```
 
 ### 5. アプリケーションのセットアップ
@@ -74,24 +74,9 @@ docker-compose exec fullstack-potal php artisan db:seed
   - Laravel v9.3 以降の場合は Laravel Pint は標準搭載
   - デフォルトの設定で使用可能
 
-### 必要な設定ファイル
+### 設定ファイル
 
-- .editorconfig（プロジェクトルートに配置）
-
-```bash
-root = true
-
-[*]
-charset = utf-8
-end_of_line = lf
-indent_size = 2
-indent_style = space
-insert_final_newline = true
-trim_trailing_whitespace = true
-
-[*.{php,blade.php}]
-indent_size = 2
-```
+- .editorconfig（プロジェクトルートにすでに配置）
 
 ### コードチェック
 
