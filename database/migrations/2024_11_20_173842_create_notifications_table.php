@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('freee_login', function (Blueprint $table) {
-            $table->id('freee_login_id');
+        Schema::create('notifications', function (Blueprint $table) {
+            $table->id('notification_id');
             $table->integer('employee_id');
-            $table->string('freee_login_mail');
-            $table->string('freee_password');
+            $table->string('notification_type',50);
+            $table->text('message');
+            $table->integer('complete_status');
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('freee_login');
+        Schema::dropIfExists('notification');
     }
 };
