@@ -30,13 +30,10 @@ git clone https://github.com/nohanakamatsuke/fullstack-potal.git
 cp .env.example .env
 ```
 
-### ３. アプリケーションのセットアップ
+### 3. sail のインストール
 
 ```bash
-# Composerパッケージのインストール
-composer install
-# アプリケーションキーの生成
-php artisan key:generate
+composer require laravel/sail --dev
 ```
 
 ### 4. Docker イメージのビルドと起動
@@ -46,7 +43,18 @@ docker-compose build
 docker-compose up -d
 ```
 
-### 5. データベースのセットアップ
+### 5. アプリケーションのセットアップ
+
+```bash
+# Composerパッケージのインストール
+composer install
+# ストレージディレクトリの権限設定
+docker compose exec fullstack-portal chmod -R 777 storage bootstrap/cache
+# アプリケーションキーの生成
+php artisan key:generate
+```
+
+### 6. データベースのセットアップ
 
 ```bash
 # マイグレーションの実行
@@ -81,7 +89,7 @@ docker-compose exec fullstack-potal php artisan db:seed
 
 ```bash
 # コードスタイルチェック
-composer lint
+composer Pint
 # コードフォーマット
 composer format
 ```
