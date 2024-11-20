@@ -30,20 +30,20 @@ git clone https://github.com/nohanakamatsuke/fullstack-potal.git
 cp .env.example .env
 ```
 
-### 3. Docker イメージのビルドと起動
-
-```bash
-docker compose build
-docker compose up -d
-```
-
-### 4. アプリケーションのセットアップ
+### ３. アプリケーションのセットアップ
 
 ```bash
 # Composerパッケージのインストール
 composer install
 # アプリケーションキーの生成
 php artisan key:generate
+```
+
+### 4. Docker イメージのビルドと起動
+
+```bash
+docker-compose build
+docker-compose up -d
 ```
 
 ### 5. データベースのセットアップ
