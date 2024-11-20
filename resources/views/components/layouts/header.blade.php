@@ -1,4 +1,4 @@
-<header class="w-full items-center bg-gray-200">
+<header class="w-full items-center bg-customMain">
     <div class="flex p-6 justify-between">
         <h1 class="flex items-center text-xl">Fullstack-Portal</h1>
         <div class="flex items-center gap-3">
