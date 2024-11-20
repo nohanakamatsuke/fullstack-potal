@@ -67,29 +67,28 @@ docker-compose exec fullstack-potal php artisan db:seed
 
 ### コーディング規約
 
+#### 基本設定
+
 - インデント: 2 スペース
-- PHP コードスタイル: Laravel Pint 準拠
-- Blade テンプレート: Laravel Blade Formatter 準拠
-
-### VSCode 推奨設定
-
-以下の拡張機能をインストールしてください：
-
-- Laravel Pint
-- Laravel Blade Formatter
-
-### フォーマッター設定
-
-プロジェクトルートに以下のファイルが配置されています：
-
-- `.editorconfig`: エディタ設定
-- `pint.json`: PHP 用フォーマッター設定
+- PHP コードスタイル: Laravel Pint
+  - Laravel v9.3 以降の場合は Laravel Pint は標準搭載
+  - デフォルトの設定で使用可能
 
 ### コードチェック
 
 ```bash
-# コードスタイルチェック
-composer Pint
-# コードフォーマット
-composer format
+# Dockerコンテナ内でコードスタイルをチェック（変更箇所を表示）
+docker compose exec laravel.test ./vendor/bin/pint --test
+
+# Dockerコンテナ内でコードをフォーマット
+docker compose exec laravel.test ./vendor/bin/pint
 ```
+
+### オプション　 VSCode 推奨設定
+
+以下の拡張機能をインストールしてください：
+
+- Laravel Pint（エディタ上でのリアルタイムフォーマット）
+
+ファイル保存時に自動フォーマット（Ctrl/Cmd + S）
+手動フォーマット（Shift + Alt + F）
