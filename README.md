@@ -74,9 +74,24 @@ docker-compose exec fullstack-potal php artisan db:seed
   - Laravel v9.3 以降の場合は Laravel Pint は標準搭載
   - デフォルトの設定で使用可能
 
-### インデント設定方法
+### 必要な設定ファイル
 
-- pint.json の作成（プロジェクトルートにすでに配置している）
+- .editorconfig（プロジェクトルートに配置）
+
+```bash
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 2
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.{php,blade.php}]
+indent_size = 2
+```
 
 ### コードチェック
 
@@ -87,12 +102,3 @@ docker compose exec laravel.test ./vendor/bin/pint --test
 # Dockerコンテナ内でコードをフォーマット
 docker compose exec laravel.test ./vendor/bin/pint
 ```
-
-### オプション　 VSCode 推奨設定
-
-以下の拡張機能をインストールしてください：
-
-- Laravel Pint（エディタ上でのリアルタイムフォーマット）
-
-ファイル保存時に自動フォーマット（Ctrl/Cmd + S）
-手動フォーマット（Shift + Alt + F）
