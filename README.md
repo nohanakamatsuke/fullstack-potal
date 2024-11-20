@@ -39,6 +39,7 @@ php artisan key:generate
 
 ```bash
 docker-compose up -d
+docker build
 ```
 
 ### 4. データベースのセットアップ
