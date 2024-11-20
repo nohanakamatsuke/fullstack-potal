@@ -74,6 +74,10 @@ docker-compose exec fullstack-potal php artisan db:seed
   - Laravel v9.3 以降の場合は Laravel Pint は標準搭載
   - デフォルトの設定で使用可能
 
+### インデント設定方法
+
+- pint.json の作成（プロジェクトルートにすでに配置している）
+
 ### コードチェック
 
 ```bash
