@@ -1,6 +1,5 @@
 ## 概要
 
-<<<<<<< HEAD
 フルスタック社員が使用可能な、 Web アプリケーション。
 
 ## 技術スタック
@@ -21,8 +20,7 @@
 ### 1. リポジトリのクローン
 
 ```bash
-git clone [URL]
-cd [fullstack-potal]
+git clone https://github.com/nohanakamatsuke/fullstack-potal.git
 ```
 
 ### 2. 環境設定
@@ -30,26 +28,31 @@ cd [fullstack-potal]
 ```bash
 # .envファイルの作成
 cp .env.example .env
+```
+
+### 3. Docker イメージのビルドと起動
+
+```bash
+docker compose build
+docker compose up -d
+```
+
+### 4. アプリケーションのセットアップ
+
+```bash
 # Composerパッケージのインストール
 composer install
 # アプリケーションキーの生成
 php artisan key:generate
 ```
 
-### 3. Docker の起動
-
-```bash
-docker-compose up -d
-docker build
-```
-
-### 4. データベースのセットアップ
+### 5. データベースのセットアップ
 
 ```bash
 # マイグレーションの実行
-docker-compose exec laravel.test php artisan migrate
+docker-compose exec fullstack-potal php artisan migrate
 # （オプション）シードデータの投入
-docker-compose exec laravel.test php artisan db:seed
+docker-compose exec fullstack-potal php artisan db:seed
 ```
 
 ## 開発ガイドライン
