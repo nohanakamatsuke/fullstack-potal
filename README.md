@@ -20,8 +20,7 @@
 ### 1. リポジトリのクローン
 
 ```bash
-git clone [URL]
-cd [fullstack-potal]
+git clone https://github.com/nohanakamatsuke/fullstack-potal.git
 ```
 
 ### 2. 環境設定
@@ -29,55 +28,62 @@ cd [fullstack-potal]
 ```bash
 # .envファイルの作成
 cp .env.example .env
+```
+
+### 3. sail のインストール
+
+```bash
+composer require laravel/sail --dev
+```
+
+### 4. Docker イメージのビルドと起動
+
+```bash
+docker　compose build
+docker　compose up -d
+```
+
+### 5. アプリケーションのセットアップ
+
+```bash
 # Composerパッケージのインストール
 composer install
+# ストレージディレクトリの権限設定
+docker compose exec fullstack-portal chmod -R 777 storage bootstrap/cache
 # アプリケーションキーの生成
 php artisan key:generate
 ```
 
-### 3. Docker の起動
-
-```bash
-docker-compose up -d
-docker build
-```
-
-### 4. データベースのセットアップ
+### 6. データベースのセットアップ
 
 ```bash
 # マイグレーションの実行
-docker-compose exec laravel.test php artisan migrate
+docker-compose exec fullstack-potal php artisan migrate
 # （オプション）シードデータの投入
-docker-compose exec laravel.test php artisan db:seed
+docker-compose exec fullstack-potal php artisan db:seed
 ```
 
 ## 開発ガイドライン
 
 ### コーディング規約
 
+#### 基本設定
+
 - インデント: 2 スペース
-- PHP コードスタイル: Laravel Pint 準拠
-- Blade テンプレート: Laravel Blade Formatter 準拠
+- PHP コードスタイル: Laravel Pint
+  - Laravel v9.3 以降の場合は Laravel Pint は標準搭載
+  - デフォルトの設定で使用可能
 
-### VSCode 推奨設定
+### 設定ファイル
 
-以下の拡張機能をインストールしてください：
-
-- Laravel Pint
-- Laravel Blade Formatter
-
-### フォーマッター設定
-
-プロジェクトルートに以下のファイルが配置されています：
-
-- `.editorconfig`: エディタ設定
-- `pint.json`: PHP 用フォーマッター設定
+- .editorconfig（プロジェクトルートにすでに配置）
 
 ### コードチェック
 
 ```bash
-# コードスタイルチェック
-composer lint
-# コードフォーマット
-composer format
+# Dockerコンテナ内でコードスタイルをチェック（変更箇所を表示）
+docker compose exec laravel.test ./vendor/bin/pint --test
+
+# Dockerコンテナ内でコードをフォーマット
+docker compose exec laravel.test ./vendor/bin/pint
 ```
