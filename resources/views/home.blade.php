@@ -13,7 +13,7 @@
 <body>
     <body class="font-mono antialiased">
         <div class="flex flex-col items-center justify-center">
-            <div class="w-full">
+            <div class="w-full h-16">
               {{-- ID:{{$id}}name:{{$name}} --}}
               <x-layouts.header :id="$id" :name="$name"/>
             </div>
