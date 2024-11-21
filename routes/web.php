@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 
+
 Route::get('/', [SessionController::class, 'session']);
 //ログイン用ルーティング
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
