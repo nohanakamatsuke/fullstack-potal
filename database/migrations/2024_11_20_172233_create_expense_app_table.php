@@ -12,15 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('expense_app', function (Blueprint $table) {
-            $table->id('expence_id'); #経費申請id
-            $table->int('employee_id'); #社員情報　外部キー
-            $table->date('application_date')->nullable; #申請日
-            $table->int('expence_amount')->nullable; #経費申請額
-            $table->text('description'); #申請内容
-            $table->text('receipt_img'); #領収書画像
-            $table->string('expense_app_line_templates', 50); #経費科目
-            $table->string('account_items', 50); #勘定科目
-            $table->int('freee_sync_status'); #Freee人事連携状況
+            $table->id('expence_id'); //経費申請id
+            $table->integer('employee_id'); //社員情報　外部キー
+            $table->date('application_date')->nullable(); //申請日
+            $table->integer('expence_amount')->nullable(); //経費申請額
+            $table->text('description'); //申請内容
+            $table->text('receipt_img'); //領収書画像
+            $table->string('expense_app_line_templates', 50); //経費科目
+            $table->string('account_items', 50); //勘定科目
+            $table->integer('freee_sync_status'); //Freee人事連携状況
             $table->timestamps();
         });
     }

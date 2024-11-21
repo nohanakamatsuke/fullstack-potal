@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('freee_login');
+        Schema::dropIfExists('freee_login_users');
     }
 };
