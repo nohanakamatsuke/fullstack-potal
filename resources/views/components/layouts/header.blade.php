@@ -6,10 +6,9 @@
               @if(isset($id) && isset($name))
                 <p>id:&nbsp;{{ $id }}</p>
                 <p>name:&nbsp;{{ $name }}</p>
-               @else
-                  <p>ログインされていません</p>
-                @endif
             </div>
             <x-css-profile class="w-8 h-8"/>
+            @else
+            @endif
         </div>
 </header>
