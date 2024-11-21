@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('freee_login_users', function (Blueprint $table) {
             $table->id('freee_login_id');
-            $table->integer('employee_id');
+            $table->integer('user_id');
             $table->string('freee_login_mail');
             $table->string('freee_password');
             $table->timestamps();
