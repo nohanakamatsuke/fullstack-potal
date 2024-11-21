@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('riding_fee', function (Blueprint $table) {
             $table->id('ride_fee_id');
-            $table->integer('employee_id'); //社員情報　外部キー
+            $table->integer('user_id'); //社員情報　外部キー
             $table->string('nearest_station', 225); //最寄り駅
             $table->string('work_nearest_station', 255); //出金先最寄り駅
             $table->integer('fare'); //最寄り駅-出金先
