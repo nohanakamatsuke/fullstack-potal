@@ -14,7 +14,8 @@
     <body class="font-mono antialiased">
         <div class="flex flex-col items-center justify-center">
             <div class="w-full">
-              <x-layouts.header/>
+              {{-- ID:{{$id}}name:{{$name}} --}}
+              <x-layouts.header :id="$id" :name="$name"/>
             </div>
         </div>
     </body>

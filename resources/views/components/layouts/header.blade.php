@@ -4,10 +4,10 @@
         <div class="flex items-center gap-3">
             <div class="text-xs font-sans">
               @if(isset($id) && isset($name))
-                <p>{{$id}}</p>
-               <p>{{$name}}</p>
+                <p>id:&nbsp;{{ $id }}</p>
+                <p>name:&nbsp;{{ $name }}</p>
                @else
-                <p>Guest</p>
+                  <p>ログインされていません</p>
                 @endif
             </div>
             <x-css-profile class="w-8 h-8"/>
