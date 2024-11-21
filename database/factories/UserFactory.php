@@ -25,10 +25,13 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
+            'user_id' => $this->generateRandomUserId(),
             'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
+            'phone_number' => fake()->phoneNumber(),
+            // 'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+            'role_id' => '1',
+            // 'remember_token' => Str::random(10),
         ];
     }
 
@@ -40,5 +43,12 @@ class UserFactory extends Factory
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
         ]);
+    }
+
+    private function generateRandomUserId(): string
+    {
+        $randomNumber = sprintf('%04d', mt_rand(0, 9999)); // 4桁のランダムな数字を生成
+
+        return "_{$randomNumber}"; // ランダムな数字を文字列として返す
     }
 }

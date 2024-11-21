@@ -7,10 +7,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class Employee extends Authenticatable
+class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
+
+    use Notifiable;
+
+    // 主キーの設定
+    protected $primaryKey = 'user_id';
+
+    // 主キーが自動増分ではないことを明示
+    public $incrementing = false;
+
+    // 主キーの型をstringに設定
+    protected $keyType = 'string';
 
     /**
      * The attributes that are mass assignable.
@@ -18,8 +29,7 @@ class Employee extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
+        'user_id',
         'password',
     ];
 

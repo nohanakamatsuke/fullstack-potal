@@ -3,17 +3,42 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class AuthController extends Controller {
-    public function login( Request $request ) {
-        $credentials = $request->only( 'user_id', 'password' );
+class AuthController extends Controller
+{
+    // ログインフォームの表示
+    public function showLoginForm()
+    {
+        return view('login');
+    }
 
-        if ( auth()->attempt( $credentials ) ) {
-            // ログイン成功時の処理
-            return redirect()->route( 'home' )->with( 'success', 'ログインに成功しました！' );
+    // ログイン処理
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'user_id' => 'required|string',
+            'password' => 'required|string',
+        ]);
+        // 認証を試みる
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            return redirect()->intended('/');
         }
 
-        // ログイン失敗時の処理
-        return redirect()->back()->with( 'error', '社員IDまたはパスワードが間違っています。' );
+        // 認証失敗時
+        return back()->with('error', 'User IDまたはパスワードが正しくありません。');
+    }
+
+    // ログアウト処理
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/login');
+  
     }
 }
