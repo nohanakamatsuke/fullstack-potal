@@ -26,6 +26,7 @@
             @else
             @endif
         </div>
+    </div>
 </header>
 
 
