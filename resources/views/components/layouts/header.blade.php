@@ -5,7 +5,7 @@
             <div class="text-xs font-sans">
               @if(isset($id) && isset($name))
                 <p>id:&nbsp;{{ $id }}</p>
-                <p>name:&nbsp;{{ $name }}</p>
+                <p>{{ $name }}</p>
             </div>
             <x-css-profile class="w-8 h-8"/>
             @else
