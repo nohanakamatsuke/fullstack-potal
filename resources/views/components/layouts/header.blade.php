@@ -20,7 +20,7 @@
                   <button type="button" id="logout" class="block hover:bg-gray-100 px-3 py-2 w-full">
                       ログアウト
                   </button>
-              </form>
+                </form>
               </div>
             </div>
             @else
