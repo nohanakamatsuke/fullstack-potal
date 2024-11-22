@@ -1,4 +1,4 @@
-<header class="w-full items-center bg-customMain">
+<header class="z-10 w-full items-center bg-customMain">
     <div class="flex p-6 justify-between">
         <h1 class="flex items-center text-xl">Fullstack-Portal</h1>
         <div class="flex items-center gap-3">
@@ -31,10 +31,10 @@
 
 
 {{-- 確認モーダル --}}
-<div id="logoutConfirmModal" class="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center hidden">
+<div id="logoutConfirmModal" class="z-50 fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center hidden">
   <div class="px-10 py-14 bg-white">
     <p>本当にログアウトしますか？</p>
-    <div class="flex mt-5 justify-center space-x-4">
+    <div class="flex mt-5 justify-center space-x-4 z-50">
       <p id="confirmLogout" class="py-1 px-3 bg-red-500 hover:bg-red-400 transition text-white">はい</p>
       <p id="cancelLogout" class="py-1 px-2 bg-gray-300 hover:bg-gray-200 ">いいえ</p>
     </div>
