@@ -42,6 +42,7 @@ class AuthController extends Controller {
         \Log::info( 'Login failed', [ 'user_id' => $request->input( 'user_id' ) ] );
 
         // 認証失敗時
+        // 認証失敗時
         return back()->with( 'error', 'User IDまたはパスワードが正しくありません。' );
     }
 
@@ -54,7 +55,6 @@ class AuthController extends Controller {
 
         return response( 'セッションから値を取得: '.$request->session()->get( 'test_key' ) );
     }
-
     // ログアウト処理
 
     public function logout( Request $request ) {
