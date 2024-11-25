@@ -3,27 +3,28 @@
         <h1 class="flex items-center text-xl">Fullstack-Portal</h1>
         <div class="flex items-center gap-3">
             <div class="text-xs font-sans">
-              @if(isset($id) && isset($name))
-                <p>id:&nbsp;{{ $id }}</p>
-                <p>{{ $name }}</p>
+                @if (isset($id) && isset($name))
+                    <p>id:&nbsp;{{ $id }}</p>
+                    <p>{{ $name }}</p>
             </div>
             {{-- アイコンとドロップダウンメニュー --}}
             <div class="relative">
-              <button id="dropdownButton" class="">
-                <x-css-profile class="w-8 h-8"/>
-              </button>
-              <div id="dropdownMenu" class="absolute right-0 w-48 mt-2 bg-white rouded-md shadow hidden">
-                {{-- プロフィール機能は今回実装しないので、グレーアウト --}}
-                <a href="" class="flex items-center justify-center grayscale block text-gray-600 line-through px-3 py-2 w-full">プロフィール</a>
-                <form id="logoutForm" action="{{ route('logout') }}" method="POST">
-                  @csrf
-                  <button type="button" id="logout" class="block hover:bg-gray-100 px-3 py-2 w-full">
-                      ログアウト
-                  </button>
-                </form>
-              </div>
+                <button id="dropdownButton" class="">
+                    <x-css-profile class="w-8 h-8" />
+                </button>
+                <div id="dropdownMenu" class="absolute right-0 w-48 mt-2 bg-white rouded-md shadow hidden">
+                    {{-- プロフィール機能は今回実装しないので、グレーアウト --}}
+                    <a href=""
+                        class="flex items-center justify-center grayscale block text-gray-600 line-through px-3 py-2 w-full">プロフィール</a>
+                    <form id="logoutForm" action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="button" id="logout" class="block hover:bg-gray-100 px-3 py-2 w-full">
+                            ログアウト
+                        </button>
+                    </form>
+                </div>
             </div>
-            @else
+        @else
             @endif
         </div>
     </div>
@@ -32,19 +33,19 @@
 
 {{-- 確認モーダル --}}
 <div id="logoutConfirmModal" class="z-50 fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center hidden">
-  <div class="px-10 py-14 bg-white">
-    <p>本当にログアウトしますか？</p>
-    <div class="flex mt-5 justify-center space-x-4 z-50">
-      <p id="confirmLogout" class="py-1 px-3 bg-red-500 hover:bg-red-400 transition text-white">はい</p>
-      <p id="cancelLogout" class="py-1 px-2 bg-gray-300 hover:bg-gray-200 ">いいえ</p>
+    <div class="px-10 py-14 bg-white">
+        <p>本当にログアウトしますか？</p>
+        <div class="flex mt-5 justify-center space-x-4 z-50">
+            <p id="confirmLogout" class="py-1 px-3 bg-red-500 hover:bg-red-400 transition text-white">はい</p>
+            <p id="cancelLogout" class="py-1 px-2 bg-gray-300 hover:bg-gray-200 ">いいえ</p>
+        </div>
     </div>
-  </div>
 </div>
 
 
 {{-- スクリプト --}}
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () => {
 
         const ICON_CLICK = document.getElementById('dropdownButton');
         const DROPDOWN_MENU = document.getElementById('dropdownMenu');
@@ -72,5 +73,4 @@
             DROPDOWN_MENU.classList.add("hidden");
         });
     });
-
 </script>
