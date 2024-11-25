@@ -3,9 +3,9 @@
     <h1 class="flex items-center text-xl">Fullstack-Portal</h1>
     <div class="flex items-center gap-3">
       <div class="text-xs font-sans">
-        @if (isset($id) && isset($name))
-          <p>id:&nbsp;{{ $id }}</p>
-          <p>{{ $name }}</p>
+        @if (session('user_id') && session('name'))
+          <p>ID:&nbsp;{{ session('user_id') }}</p>
+          <p>{{ session('name') }}</p>
       </div>
       {{-- アイコンとドロップダウンメニュー --}}
       <div class="relative">

@@ -13,7 +13,7 @@
 <body class="font-mono antialiased">
   <div class="flex flex-col items-center">
     <div class="w-full h-22">
-      <x-layouts.header :id="$id" :name="$name" />
+      <x-layouts.header :user_id="$user_id" :name="$name" />
     </div>
     <div class="mt-28 flex flex-col h-auto">
       <div class="grid grid-cols-2 xl:grid-cols-4 gap-8 sm:gap-10 lg:gap-20 text-lg md:text-2xl lg:text-3xl">
