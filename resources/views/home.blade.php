@@ -12,6 +12,8 @@
 
 <body class="font-mono antialiased">
   <div class="flex flex-col items-center">
+    {{-- アラートメッセージ --}}
+
     <div class="w-full h-22">
       <x-layouts.header :user_id="$user_id" :name="$name" />
     </div>
@@ -24,6 +26,10 @@
     </div>
   </div>
 </body>
-</body>
+@if (session()->has('success'))
+  <script>
+    alert("{{ session('success') }}")
+  </script>
+@endif
 
 </html>
