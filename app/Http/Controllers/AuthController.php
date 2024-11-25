@@ -33,14 +33,11 @@ class AuthController extends Controller {
             // ユーザー情報をセッションに保存
             $user = Auth::user();
 
-            // $request->session()->put( 'user_id', $user->user_id );
-            // $request->session()->put( 'name', $user->name );
-
             session( [
                 'user_id' => $user->user_id,
                 'name' => $user->name
             ] );
-            return redirect()->intended( '/' );
+            return redirect()->intended( '/' )->with( 'success', 'ログインに成功しました。' );
         }
         \Log::info( 'Login failed', [ 'user_id' => $request->input( 'user_id' ) ] );
 
