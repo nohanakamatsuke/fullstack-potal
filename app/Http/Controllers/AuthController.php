@@ -55,6 +55,8 @@ class AuthController extends Controller {
         return response( 'セッションから値を取得: '.$request->session()->get( 'test_key' ) );
     }
 
+
+
     // ログアウト処理
 
     public function logout( Request $request ) {

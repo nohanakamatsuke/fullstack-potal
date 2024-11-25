@@ -27,8 +27,6 @@
         </div>
       </div>
 </header>
-
-
 {{-- 確認モーダル --}}
 <div id="logoutConfirmModal" class="z-50 fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center hidden">
   <div class="px-10 py-14 bg-white">
@@ -39,8 +37,6 @@
     </div>
   </div>
 </div>
-
-
 {{-- スクリプト --}}
 <script>
   document.addEventListener('DOMContentLoaded', () => {
