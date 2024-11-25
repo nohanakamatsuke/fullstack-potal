@@ -2,38 +2,34 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Fullstack-Portal</title>
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fullstack-Portal</title>
+  <link rel="preconnect" href="https://fonts.bunny.net">
+  <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body>
+<body class="font-mono antialiased">
+  <div class="flex flex-col items-center">
+    {{-- アラートメッセージ --}}
 
-    <body class="font-mono antialiased">
-        <div class="flex flex-col items-center justify-center">
-            <div class="w-full h-16">
-                @include('/components/layouts/header')
-                {{-- ID:{{$id}}name:{{$name}} --}}
-                {{-- セッションからユーザー情報を取得 --}}
-                {{-- @if (Session::has('user_id') && Session::has('name'))
-                    <p>ID:&nbsp;{{ Session::get('user_id') }}</p>
-                    <p>名前:&nbsp;{{ Session::get('name') }}</p>
-                @else
-                    <p>ログインしていません</p>
-                @endif --}}
-                {{-- コンテンツエリア --}}
-                <div class="w-full px-4 py-8 text-center">
-                    <h2 class="text-2xl font-semibold">ホーム画面</h2>
-                    <p>ここにホーム画面のコンテンツを配置します。</p>
-                </div>
-            </div>
-    </body>
-
+    <div class="w-full h-22">
+      <x-layouts.header :user_id="$user_id" :name="$name" />
+    </div>
+    <div class="mt-28 flex flex-col h-auto">
+      <div class="grid grid-cols-2 xl:grid-cols-4 gap-8 sm:gap-10 lg:gap-20 text-lg md:text-2xl lg:text-3xl">
+        @foreach ($inHomeButton as $buttonName => $status)
+          <x-layouts.button :buttonName="$buttonName" :status="$status" />
+        @endforeach
+      </div>
+    </div>
+  </div>
 </body>
+@if (session()->has('success'))
+  <script>
+    alert("{{ session('success') }}")
+  </script>
+@endif
 
 </html>
