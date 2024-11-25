@@ -4,7 +4,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 
-Route::get( '/', [ MainController::class, 'show_home' ] );
+Route::get( '/', [ MainController::class, 'show_home' ] )->middleware( 'auth' );
+;
 
 //ログイン用ルーティング
 Route::get( '/login', [ AuthController::class, 'showLoginForm' ] )->name( 'login' );
