@@ -1,24 +1,39 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Fullstack-Portal</title>
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fullstack-Portal</title>
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-    </head>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+</head>
+
 <body>
+
     <body class="font-mono antialiased">
         <div class="flex flex-col items-center justify-center">
             <div class="w-full h-16">
-              {{-- ID:{{$id}}name:{{$name}} --}}
-              <x-layouts.header :id="$id" :name="$name"/>
+                @include('/components/layouts/header')
+                {{-- ID:{{$id}}name:{{$name}} --}}
+                {{-- セッションからユーザー情報を取得 --}}
+                {{-- @if (Session::has('user_id') && Session::has('name'))
+                    <p>ID:&nbsp;{{ Session::get('user_id') }}</p>
+                    <p>名前:&nbsp;{{ Session::get('name') }}</p>
+                @else
+                    <p>ログインしていません</p>
+                @endif --}}
+                {{-- コンテンツエリア --}}
+                <div class="w-full px-4 py-8 text-center">
+                    <h2 class="text-2xl font-semibold">ホーム画面</h2>
+                    <p>ここにホーム画面のコンテンツを配置します。</p>
+                </div>
             </div>
-        </div>
     </body>
 
 </body>
+
 </html>
