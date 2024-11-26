@@ -22,4 +22,3 @@ Route::get( '/expense-confirm', [ ExpenseFormController::class, 'show_expense_co
 Route::get( '/login', [ AuthController::class, 'showLoginForm' ] )->name( 'login' );
 Route::post( '/login', [ AuthController::class, 'login' ] )->name( 'login.attempt' );
 Route::post( '/logout', [ AuthController::class, 'logout' ] )->name( 'logout.attempt' );
-
