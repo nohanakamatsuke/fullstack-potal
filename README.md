@@ -63,6 +63,13 @@ docker-compose exec fullstack-potal php artisan migrate
 docker-compose exec fullstack-potal php artisan db:seed
 ```
 
+### 7. TailwindCSS のインストール
+
+```bash
+npm install -D tailwindcss
+```
+
+
 ## 開発ガイドライン
 
 ### コーディング規約
