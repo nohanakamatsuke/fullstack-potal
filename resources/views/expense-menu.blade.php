@@ -1,3 +1,5 @@
+{{-- 経費メニュー --}}
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -12,26 +14,30 @@
 </head>
 
 <body class="font-mono antialiased">
-  <div class="flex flex-col">
 
+  <div class="flex flex-col">
     {{-- ヘッダー --}}
     <x-layouts.header :user_id="$user_id" :name="$name" />
-    {{-- 戻るボタン --}}
-    <x-layouts.return-button />
 
-    <div class="mx-auto mt-28 flex flex-col h-auto items-center">
+    {{-- 戻るボタン --}}
+    <x-layouts.return-button :prevurl="$prevurl" />
+
+    {{-- メニューボタン --}}
+    <div class="mx-auto mt-8 flex flex-col h-auto items-center">
       <div class="grid grid-cols-2 xl:grid-cols-4 gap-8 sm:gap-10 lg:gap-20 text-lg md:text-2xl lg:text-3xl">
         @foreach ($inExpenseMenuButton as $button)
           <x-layouts.button :label="$button['label']" :status="$button['status']" :route="$button['route']" />
         @endforeach
       </div>
     </div>
+
     {{-- 履歴一覧表示 --}}
-    <div class="mx-auto mt-10 space-y-3 text-gray-700">
+    <div class="mx-auto mt-20 space-y-3 text-gray-700">
       <p class="text-sm">直近の履歴</p>
       @foreach ($expenseHistory as $history => $status)
         <div class="flex">
           <p>{{ $history }}</p>
+
           {{-- ステータスバッチ 条件分岐 --}}
           @if ($status === '承認')
             <span
