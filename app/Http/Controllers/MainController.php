@@ -33,7 +33,6 @@ class MainController extends Controller {
         //直前のページURLを取得
         $prevurl = url()->previous();
 
-        return view( 'home', compact( 'user_id', 'name', 'inHomeButton' ) );
+        return view('home', compact('user_id', 'name', 'inHomeButton')); //フロントのhome画面に、セッションから取得した値と、各種ボタンの表示を渡す。
     }
-
 }
