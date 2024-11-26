@@ -9,6 +9,7 @@ class AuthController extends Controller
 {
     // ログインフォームの表示
     public function showLoginForm()
+
     {
         $login_check = session('user_id');
         if ($login_check) {
@@ -53,7 +54,6 @@ class AuthController extends Controller
         // 認証失敗時
 　　create-loginstate
         return back()->with('error', 'User IDまたはパスワードが正しくありません。'); //ログイン失敗時画面にエラーを表示
-
     }
 
     // ログアウト処理
