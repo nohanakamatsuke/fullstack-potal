@@ -9,7 +9,6 @@ class AuthController extends Controller
 {
     // ログインフォームの表示
     public function showLoginForm()
-
     {
         $login_check = session('user_id');
         if ($login_check) {
@@ -34,6 +33,8 @@ class AuthController extends Controller
             'user_id' => 'required|string',
             'password' => 'required|string|max:255',
         ]);
+        dd($request->all());
+        \Log::info('credentials:' + $credentials);
 
         // 認証を試みる
         if (Auth::attempt($credentials)) { //もし$credentialsにログインに必要な値があれば、実行
@@ -52,7 +53,6 @@ class AuthController extends Controller
         \Log::info('Login failed', ['user_id' => $request->input('user_id')]); //ログイン失敗時　ログにuser_idを表示
 
         // 認証失敗時
-　　create-loginstate
         return back()->with('error', 'User IDまたはパスワードが正しくありません。'); //ログイン失敗時画面にエラーを表示
     }
 
