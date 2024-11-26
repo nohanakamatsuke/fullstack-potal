@@ -1,3 +1,5 @@
+{{-- ヘッダー --}}
+
 <header class="z-10 w-full h-22 items-center bg-customMain">
   <div class="flex p-6 justify-between">
     <h1 class="flex items-center text-xl">Fullstack-Portal</h1>
