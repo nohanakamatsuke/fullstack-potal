@@ -36,8 +36,8 @@ cp .env.example .env
 composer require laravel/sail --dev
 ```
 
-
 ### 4. エイリアスの設定
+
 ```bash
 alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 ```
@@ -69,12 +69,11 @@ docker-compose exec fullstack-potal php artisan migrate
 docker-compose exec fullstack-potal php artisan db:seed
 ```
 
-### 7. TailwindCSS のインストール
+### TailwindCSS のインストール
 
 ```bash
 npm install -D tailwindcss
 ```
-
 
 ## 開発ガイドライン
 
@@ -83,4 +82,3 @@ npm install -D tailwindcss
 #### 基本設定
 
 - インデント: 2 スペース
-
