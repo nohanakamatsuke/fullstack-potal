@@ -16,7 +16,7 @@ class ExpenseMenuController extends MainController {
         $user_id = $this->user_id;
 
         $inExpenseMenuButton = [
-            [ 'label' =>'申請', 'status' => 1, 'route' => '' ],
+            [ 'label' =>'申請', 'status' => 1, 'route' => 'expense-form' ],
             [ 'label' =>'履歴', 'status' => 0, 'route' => '' ],
         ];
         $expenseHistory = [
