@@ -6,7 +6,7 @@
     {{-- 表面 --}}
 
     <label for="receipt_front"
-      class="px-2 py-3 xl:px-20 xl:py-10 flex flex-col border-dashed border-2 border-gray-500 bg-gray-200 rounded-md cursor-pointer hover:bg-gray-100 transition">
+      class="mt-3 px-2 py-3 xl:px-20 xl:py-10 flex flex-col border-dashed border-2 border-gray-500 bg-gray-200 rounded-md cursor-pointer hover:bg-gray-100 transition">
       <div class="flex flex-col items-center w-full">
         <x-heroicon-o-arrow-up-tray class="w-6 h-6 text-gray-500" />
         <span class="text-gray-500">表面を送付</span>
@@ -22,7 +22,7 @@
     {{-- 裏面 --}}
 
     <label for="receipt_back"
-      class="px-2 py-3 xl:px-20 xl:py-10 flex flex-col border-dashed border-2 border-gray-500 bg-gray-200 rounded-md cursor-pointer hover:bg-gray-100 transition">
+      class="mt-3 px-2 py-3 xl:px-20 xl:py-10 flex flex-col border-dashed border-2 border-gray-500 bg-gray-200 rounded-md cursor-pointer hover:bg-gray-100 transition">
       <div class="flex flex-col items-center w-full">
         <x-heroicon-o-arrow-up-tray class="w-6 h-6 text-gray-500" />
         <span class="text-gray-500">裏面を送付</span>
