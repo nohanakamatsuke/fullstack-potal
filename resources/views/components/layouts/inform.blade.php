@@ -1,13 +1,12 @@
-<h1 class="border-b-2 border-black text-2xl">経費申請フォーム</h1>
 {{-- 領収書エリア --}}
-<section class="flex flex-col space-y-2">
+<section class="flex flex-col space-y-2 mt-5">
   <label for="">領収書の画像</label>
   <span class="text-xs text-gray-500">※領収書は捨てずに保管しておいてください。</span>
   <div class="w-full flex items-center justify-between xl:justify-center xl:gap-20">
     {{-- 表面 --}}
 
     <label for="receipt_front"
-      class="px-8 py-3 xl:px-20 xl:py-10 flex flex-col  border-dashed border-2 border-gray-500 bg-gray-200 rounded-md cursor-pointer">
+      class="px-8 py-3 xl:px-20 xl:py-10 flex flex-col border-dashed border-2 border-gray-500 bg-gray-200 rounded-md cursor-pointer">
       <div class="flex flex-col items-center w-full">
         <x-heroicon-o-arrow-up-tray class="w-6 h-6 text-gray-500" />
         <span class="text-gray-500">表面を送付</span>
