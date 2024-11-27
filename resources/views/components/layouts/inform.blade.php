@@ -6,14 +6,15 @@
     {{-- 表面 --}}
 
     <label for="receipt_front"
-      class="px-8 py-3 xl:px-20 xl:py-10 flex flex-col border-dashed border-2 border-gray-500 bg-gray-200 rounded-md cursor-pointer">
+      class="px-2 py-3 xl:px-20 xl:py-10 flex flex-col border-dashed border-2 border-gray-500 bg-gray-200 rounded-md cursor-pointer hover:bg-gray-100 transition">
       <div class="flex flex-col items-center w-full">
         <x-heroicon-o-arrow-up-tray class="w-6 h-6 text-gray-500" />
         <span class="text-gray-500">表面を送付</span>
       </div>
-      <div class="mt-1 w-20">
+      <div class="mt-1 w-26">
         <input type="file" id="receipt_back" name="receipt_back"
-          class="w-full text-[6px] file:py-2 file:px-1 file:text-[7px] file:border-0" required>
+          class="w-full text-[6px] file:py-1 file:px-3 file:text-[7px] file:border-0 file:shadow-xl file:hover:shadow-none file:bg-gray-100"
+          required>
       </div>
     </label>
 
@@ -21,14 +22,15 @@
     {{-- 裏面 --}}
 
     <label for="receipt_back"
-      class="px-8 py-3 xl:px-20 xl:py-10 flex flex-col border-dashed border-2 border-gray-500 bg-gray-200 rounded-md cursor-pointer">
+      class="px-2 py-3 xl:px-20 xl:py-10 flex flex-col border-dashed border-2 border-gray-500 bg-gray-200 rounded-md cursor-pointer hover:bg-gray-100 transition">
       <div class="flex flex-col items-center w-full">
         <x-heroicon-o-arrow-up-tray class="w-6 h-6 text-gray-500" />
         <span class="text-gray-500">裏面を送付</span>
       </div>
-      <div class="mt-1 w-20">
+      <div class="mt-1 w-26">
         <input type="file" id="receipt_back" name="receipt_back" {{-- class=" w-20 text-[10px] w-24 file:py-1 file:px-2 file:text-[10px] file:border-0" required> --}}
-          class="w-full text-[6px] file:text-[7px] file:py-2 file:px-1 file:border-0" required>
+          class="w-full text-[6px] file:text-[7px] file:py-1 file:px-3 file:border-0 file:shadow-xl file:hover:shadow-none file:bg-gray-100"
+          required>
       </div>
     </label>
 
