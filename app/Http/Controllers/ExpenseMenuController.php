@@ -31,12 +31,4 @@ class ExpenseMenuController extends MainController {
         return  view( 'expense-menu', compact( 'user_id', 'name', 'inExpenseMenuButton', 'expenseHistory', 'prevurl' ) );
     }
 
-    public function create() {
-        // 経費申請フォーム
-    }
-
-    public function history() {
-        // 経費一覧
-    }
-
 }
