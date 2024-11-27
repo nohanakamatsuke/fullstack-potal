@@ -29,14 +29,23 @@
         {{-- フォーム内容 --}}
         <div id="expense-form-content" class="space-y-4">
           <h1 id="number-of-form" class="border-l-4 border-gray-400 text-lg mt-5 p-1">1件目</h1>
+          @csrf
           <x-layouts.inform />
         </div>
 
+
         {{-- プラスボタン --}}
-        <section id="plus-btn">
-          @csrf
+        <section id="plus-btn" class="mt-3">
           <x-layouts.plus-button />
         </section>
+
+        {{-- マイナスボタン　※デフォルトで非表示 --}}
+        <section id="minus-btn" class="mt-3 hidden">
+          <x-layouts.minus-button />
+        </section>
+
+
+
       </div>
 
       {{-- 確認ボタン --}}
@@ -54,36 +63,70 @@
 
     // インデックス番号を振り当てる
     let formIndex = 1;
+    // 最大フォーム数を10件に設定
     const MAX_FORMS = 10;
 
-    document.getElementById('plus-btn').addEventListener('click', function() {
+    // HTML要素をidにて取得
+    const plusBtn = document.getElementById('plus-btn');
+    const minusBtn = document.getElementById('minus-btn');
+    const formContainer = document.getElementById('inside-form');
 
-      const originalForm = document.querySelector('#expense-form-content');
+    // プラスボタンををクリックした際
+    plusBtn.addEventListener('click', function() {
 
-      if (!originalForm) {
-        console.error('フォーム要素が見つかりませんでした');
-        return;
-      }
       // インデックス番号をカウントアップ
       formIndex++;
 
+      // 本家のフォーム要素
+      const originalForm = document.querySelector('#expense-form-content');
+
       // フォームのコピーを生成
-      let newForm = originalForm.outerHTML;
+      let newForm = originalForm.cloneNode(true);
 
-      // フォームのコピーのh1要素の中身をカウントアップしたもので配置
-      newForm = newForm.replace('1件目', `${formIndex}件目`)
+      // フォームのidをインデックスによって指定
+      newForm.id = `expense-form-content-${formIndex}`;
 
-      // プラスボタンの直前に追加
-      const plusButton = document.getElementById('plus-btn');
-      plusButton.insertAdjacentHTML('beforebegin', newForm)
+      // 件数のh１要素を取得
+      const formNumber = newForm.querySelector('#number-of-form');
 
-      // 10件以上の場合は、プラスボタンを隠す
+      //件数のh１要素を更新
+      formNumber.innerHTML = `${formIndex}件目`;
+
+      // プラスボタンの直前に生成したフォーム要素を配置
+      plusBtn.before(newForm)
+
+      // 10件以上の場合は、プラスボタン隠す
       if (formIndex >= MAX_FORMS) {
-        plusButton.style.display = 'none';
+        plusBtn.classList.add('hidden');
       }
-    })
 
-  })
+      // マイナスボタンを表示させる
+      minusBtn.classList.remove('hidden');
+    });
+
+    // マイナスボタンのクリックイベント
+    minusBtn.addEventListener('click', function() {
+
+      // 最後のフォームを削除
+      const lastForm = document.querySelector(`#expense-form-content-${formIndex}`);
+
+      if (lastForm) {
+        lastForm.remove();
+      }
+
+      // カウンターを減らす
+      formIndex--;
+
+      // カウントが１に戻ったら、マイナスボタンを隠す
+      if (formIndex === 1) {
+        minusBtn.classList.add('hidden');
+      }
+      // カウントが10から少なくなったら、プラスボタンを再表示させる
+      if (formIndex < MAX_FORMS) {
+        plusBtn.classList.remove('hidden');
+      }
+    });
+  });
 </script>
 
 </html>
