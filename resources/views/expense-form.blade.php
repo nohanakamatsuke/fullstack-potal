@@ -33,7 +33,8 @@
         </div>
 
         {{-- プラスボタン --}}
-        <section id="plus-btn" class="">
+        <section id="plus-btn">
+          @csrf
           <x-layouts.plus-button />
         </section>
       </div>
