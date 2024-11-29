@@ -17,6 +17,8 @@ Route::post( '/expense-submit', [ ExpenseFormController::class, 'expense_form_su
 
 // 確認画面用ルーティング
 Route::get( '/expense-confirm', [ ExpenseFormController::class, 'show_expense_confirm' ] )->middleware( 'auth' )->name( 'expense.confirm' );
+Route::post( '/expense-store', [ ExpenseFormController::class, 'expense_store' ] )->middleware( 'auth' )->name( 'expense.store' );
+
 
 //ログイン用ルーティング
 Route::get( '/login', [ AuthController::class, 'showLoginForm' ] )->name( 'login' );

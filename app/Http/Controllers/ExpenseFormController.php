@@ -1,5 +1,5 @@
 <?php
-// 経費メニューのコントローラー
+// 経費申請のコントローラー
 // ここで、確認画面に遷移する前のバリデートを行う
 
 namespace App\Http\Controllers;
@@ -53,23 +53,29 @@ class ExpenseFormController extends MainController {
             return back() ->withErrors( $error->validator )->withInput();
         }
 
-        // session( [ 'form_input', $validated ] );
+        $prevurl = url()->previous();
 
         // バリデート成功した場合
-        return view ( 'expense-confirm', compact( 'name', 'user_id', 'validated', 'formCount' ) );
+        return view ( 'expense-confirm', compact( 'name', 'user_id', 'validated', 'formCount', 'prevurl' ) );
         // return redirect() -> intended( 'expense-confirm' );
     }
 
     public function show_expense_confirm ( Request $request ) {
-
-        // $validated = $request->all();
 
         // 親クラスから、メソッドを呼び出す
         $this->show_home( $request );
         $name = $this->name;
         $user_id = $this->user_id;
 
-        return view ( 'expense-confirm', compact( 'name', 'user_id' ) );
+        $prevurl = url()->previous()->previous();
+
+        return view ( 'expense-confirm', compact( 'name', 'user_id', 'prevurl' ) );
+
     }
 
+    public function expense_store( Request $request ) {
+
+      return redirect()->intended( '/' )->with( 'success', '経費申請完了しました' );
+  }
 }
+

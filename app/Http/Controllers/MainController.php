@@ -5,6 +5,7 @@ class MainController extends Controller {
     // クラスレベルで、protectedで変数を定義することで、子クラスからアクセス可能
     protected $user_id;
     protected $name;
+
     public function show_home( Request $request ) {
         //protectedにアクセスするために$thisを通す
         $this -> user_id
