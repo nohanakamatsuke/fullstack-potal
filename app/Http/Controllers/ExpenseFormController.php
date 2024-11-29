@@ -5,7 +5,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Validation\ValidationException;
-
+use App\Models\ExpenseApp;
 use Illuminate\Http\Request;
 
 class ExpenseFormController extends MainController {
@@ -29,7 +29,8 @@ class ExpenseFormController extends MainController {
         // フォームの件数を、dateの配列数から取得して、セッションに保存
         $formCount = count( $request->input( 'date', [] ) );
         session( [ 'form_count' => $formCount ] );
-        // dd( $formCount );
+
+        //dd( $formCount );
 
         // 必須項目のバリデート
         try {
@@ -44,7 +45,7 @@ class ExpenseFormController extends MainController {
                 'required' => '全ての項目を入力してください'
             ] );
             // 発生したエラーを$errorで元のビューにエラーメッセージと、入力情報を渡す
-        } catch( ValidationExeption $error ) {
+        } catch( ValidationException $error ) {
             return back() ->withErrors( $error->validator )->withInput();
         }
 
@@ -65,6 +66,7 @@ class ExpenseFormController extends MainController {
         $user_id = $this->user_id;
 
         return view ( 'expense-confirm', compact( 'name', 'user_id' ) );
+
     }
 
 }
