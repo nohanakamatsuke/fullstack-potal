@@ -12,15 +12,14 @@ class ExpenseFormController extends MainController {
 
     public function show_expense_form( Request $request ) {
 
-        $this->show_home( $request );
         // 親クラスから、メソッドを呼び出す
-
+        $this->show_home( $request );
         $name = $this->name;
         // compactは通常の変数しか扱えないので、$thisのプロパティをローカル変数に変換
         $user_id = $this->user_id;
 
-        $prevurl = url()->previous();
         //直前のページURLを取得
+        $prevurl = url()->previous();
 
         return  view( 'expense-form', compact( 'user_id', 'name', 'prevurl' ) );
 
@@ -49,31 +48,25 @@ class ExpenseFormController extends MainController {
         } catch( ValidationException $error ) {
             return back() ->withErrors( $error->validator )->withInput();
         }
+
+        // session( [ 'form_input', $validated ] );
+
         // バリデート成功した場合
-        return redirect() -> intended( 'expense-confirm' );
+        return view ( 'expense-confirm', compact( 'name', 'user_id', 'validated', 'formCount' ) );
+        // return redirect() -> intended( 'expense-confirm' );
     }
 
-    // テスト用で、配置しているが確認画面を作成する際は、新しくコントローラーを作成する
+    public function show_expense_confirm ( Request $request ) {
 
-    public function show_expense_confirm (Request $request) {
+        // $validated = $request->all();
 
-      // 配列データの取得
-      // $dates = $request->input('date');
-      // $items = $request->input('item');
-      // $purposes = $request->input('purpose');
-      // $totalAmounts = $request->input('total-amount');
+        // 親クラスから、メソッドを呼び出す
+        $this->show_home( $request );
+        $name = $this->name;
+        $user_id = $this->user_id;
 
-      // // ループでデータを個別に登録
-      // foreach ($dates as $index => $startDate) {
-      //   ExpenseApp::create([
-      //         'start_date' => $startDate,
-      //         'end_date' => $startDate, // 終了日が同じならこのまま。違うならリクエストから取得
-      //         'item' => $items[$index] ?? null, // 配列外アクセスを防ぐため ?? null を追加
-      //         'purpose' => $purposes[$index] ?? null,
-      //         'total_amount' => $totalAmounts[$index] ?? null,
-      //     ]);
-      // }
-        return view ( 'expense-confirm' );
+        return view ( 'expense-confirm', compact( 'name', 'user_id' ) );
+
     }
 
 }

@@ -14,13 +14,19 @@
 
 <body class="font-mono antialiased">
 
-  <div class="flex flex-col items-center">
-    {{-- ヘッダー --}}
-    {{-- <x-layouts.header :user_id="$user_id" :name="$name" /> --}}
+  {{-- ヘッダー --}}
+  <x-layouts.header :user_id="$user_id" :name="$name" />
 
-    <div>確認画面のテストです</div>
-
-  </div>
+  <main class="flex flex-col items-center ">
+    <section>
+      <h1 class="mt-10">以下の内容で送信してよろしいですか？</h1>
+    </section>
+    <x-layouts.inside-confirm />
+    <section id="button-grp" class="flex space-x-7 mt-10">
+      <button class="bg-red-400 w-20 rounded-lg px-1 py-3">キャンセル</button>
+      <button class="bg-customHoverMain w-20 rounded-lg px-1 py-3">申請</button>
+    </section>
+  </main>
 
 </body>
 
