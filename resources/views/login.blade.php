@@ -4,6 +4,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -66,26 +67,26 @@
         const form = document.querySelector('form');
         const csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
 
-        form.addEventListener('submit', function(e) {
-          e.preventDefault(); // デフォルトの送信を防止
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault(); // デフォルトの送信を防止
 
-          // 新しいCSRFトークンを取得
-          fetch('/refresh-csrf')
-            .then(response => response.json())
-            .then(data => {
-              const csrfToken = data.csrf_token;
+                    // 新しいCSRFトークンを取得
+                    fetch('/refresh-csrf')
+                        .then(response => response.json())
+                        .then(data => {
+                            const csrfToken = data.csrf_token;
 
-              // フォームに新しいCSRFトークンを埋め込む
-              const csrfInput = form.querySelector('input[name="_token"]');
-              csrfInput.value = csrfToken;
+                            // フォームに新しいCSRFトークンを埋め込む
+                            const csrfInput = form.querySelector('input[name="_token"]');
+                            csrfInput.value = csrfToken;
 
-              // 再度フォームを送信
-              form.submit();
+                            // 再度フォームを送信
+                            form.submit();
+                        });
+                });
             });
-        });
-      });
-    </script>
-  @endif
+        </script>
+    @endif
 </body>
 
 </html>

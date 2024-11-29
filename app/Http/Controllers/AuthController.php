@@ -52,7 +52,8 @@ class AuthController extends Controller
         \Log::info('Login failed', ['user_id' => $request->input('user_id')]); //ログイン失敗時　ログにuser_idを表示
 
         // 認証失敗時
-        return back()->with( 'error', 'User IDまたはパスワードが正しくありません。' );
+        return back()->with('error', 'User IDまたはパスワードが正しくありません。'); //ログイン失敗時画面にエラーを表示
+
     }
 
     // ログアウト処理
