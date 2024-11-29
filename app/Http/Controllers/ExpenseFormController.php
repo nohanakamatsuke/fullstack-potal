@@ -29,7 +29,7 @@ class ExpenseFormController extends MainController {
         // フォームの件数を、dateの配列数から取得して、セッションに保存
         $formCount = count( $request->input( 'date', [] ) );
         session( [ 'form_count' => $formCount ] );
-        dd( $request );
+
         //dd( $formCount );
 
         // 必須項目のバリデート
