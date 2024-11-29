@@ -26,6 +26,10 @@ class ExpenseFormController extends MainController {
     }
 
     public function expense_form_submit ( Request $request ) {
+        // 親クラスから、メソッドを呼び出す
+        $this->show_home( $request );
+        $name = $this->name;
+        $user_id = $this->user_id;
         // フォームの件数を、dateの配列数から取得して、セッションに保存
         $formCount = count( $request->input( 'date', [] ) );
         session( [ 'form_count' => $formCount ] );
