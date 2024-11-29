@@ -5,7 +5,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Validation\ValidationException;
-
+use App\Models\ExpenseApp;
 use Illuminate\Http\Request;
 
 class ExpenseFormController extends MainController {
@@ -30,7 +30,8 @@ class ExpenseFormController extends MainController {
         // フォームの件数を、dateの配列数から取得して、セッションに保存
         $formCount = count( $request->input( 'date', [] ) );
         session( [ 'form_count' => $formCount ] );
-        // dd( $formCount );
+        dd( $request );
+        //dd( $formCount );
 
         // 必須項目のバリデート
         try {
@@ -45,7 +46,7 @@ class ExpenseFormController extends MainController {
                 'required' => '全ての項目を入力してください'
             ] );
             // 発生したエラーを$errorで元のビューにエラーメッセージと、入力情報を渡す
-        } catch( ValidationExeption $error ) {
+        } catch( ValidationException $error ) {
             return back() ->withErrors( $error->validator )->withInput();
         }
         // バリデート成功した場合
@@ -54,7 +55,24 @@ class ExpenseFormController extends MainController {
 
     // テスト用で、配置しているが確認画面を作成する際は、新しくコントローラーを作成する
 
-    public function show_expense_confirm () {
+    public function show_expense_confirm (Request $request) {
+
+      // 配列データの取得
+      $dates = $request->input('date');
+      $items = $request->input('item');
+      $purposes = $request->input('purpose');
+      $totalAmounts = $request->input('total-amount');
+
+      // ループでデータを個別に登録
+      foreach ($dates as $index => $startDate) {
+        ExpenseApp::create([
+              'start_date' => $startDate,
+              'end_date' => $startDate, // 終了日が同じならこのまま。違うならリクエストから取得
+              'item' => $items[$index] ?? null, // 配列外アクセスを防ぐため ?? null を追加
+              'purpose' => $purposes[$index] ?? null,
+              'total_amount' => $totalAmounts[$index] ?? null,
+          ]);
+      }
         return view ( 'expense-confirm' );
     }
 
