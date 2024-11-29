@@ -1,4 +1,4 @@
-{{-- フルスタックポータル　ホーム --}}
+{{-- 確認画面　--}}
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -21,11 +21,19 @@
     <section>
       <h1 class="mt-10">以下の内容で送信してよろしいですか？</h1>
     </section>
-    <x-layouts.inside-confirm />
-    <section id="button-grp" class="flex space-x-7 mt-10">
-      <button class="bg-red-400 w-20 rounded-lg px-1 py-3">キャンセル</button>
-      <button class="bg-customHoverMain w-20 rounded-lg px-1 py-3">申請</button>
-    </section>
+    <form action="{{ route('expense.store') }}" method="POST" enctype="multipart/form-data"
+      class="flex flex-col items-center ">
+      @csrf
+      @for ($i = 0; $i < $formCount; $i++)
+        <x-layouts.inside-confirm :validated="$validated" :i="$i" />
+      @endfor
+      <section id="button-grp" class="flex space-x-7 mt-10">
+        <button class="bg-red-400 w-20 shadow-md hover:shadow-none rounded-lg px-1 py-3 hover:bg-red-300 transition"><a
+            href="{{ route('expense.form') }}">キャンセル</a></button>
+        <button type="submit"
+          class="bg-customMain w-20 rounded-lg shadow-md hover:shadow-none px-1 py-3 hover:bg-customHoverMain transition">申請</button>
+      </section>
+    </form>
   </main>
 
 </body>

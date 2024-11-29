@@ -2,23 +2,24 @@
   <div class="pl-8 pr-24 py-8">
     <div class="flex border-b-2 border-gray-400">
       <label>用途項目:</label>
-      <p>固定値</p>
+      <p>{{ $validated['item'][$i] }}</p>
     </div>
     <div class="flex border-b-2 border-gray-400">
       <label>使用年月日:</label>
-      <p>2024/11/11</p>
+      <p>{{ $validated['date'][$i] }}</p>
     </div>
     <div class="flex border-b-2 border-gray-400">
       <label>領収書の画像:</label>
-      <img src="" alt="">
+      <p>{{ $validated['receipt-front'][0] }}</p>
+      <img src={{ $validated['receipt-front'][0] }} alt="" class="w-5 h-5">
     </div>
     <div class="flex border-b-2 border-gray-400">
       <label>合計金額:</label>
-      <p>8888</p>
+      <p>{{ $validated['total-amount'][$i] }}円</p>
     </div>
-    <div class="flex border-b-2 border-gray-400">
+    <div class="flex border-b-2 border-gray-400 space-x-5">
       <label>用途の詳細:</label>
-      <p>テスト</p>
+      <p>{{ $validated['purpose'][$i] }}</p>
     </div>
   </div>
 </section>
