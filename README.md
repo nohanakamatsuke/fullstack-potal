@@ -39,8 +39,8 @@ composer require laravel/sail --dev
 ### 4. Docker イメージのビルドと起動
 
 ```bash
-docker　compose build
-docker　compose up -d
+sail build
+sail up -d
 ```
 
 ### 5. アプリケーションのセットアップ
@@ -68,7 +68,6 @@ docker-compose exec fullstack-potal php artisan db:seed
 ```bash
 npm install -D tailwindcss
 ```
-
 
 ## 開発ガイドライン
 
