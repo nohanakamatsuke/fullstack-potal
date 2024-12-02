@@ -36,14 +36,20 @@ cp .env.example .env
 composer require laravel/sail --dev
 ```
 
-### 4. Docker イメージのビルドと起動
 
+### 4. エイリアスの設定
 ```bash
-docker　compose build
-docker　compose up -d
+alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 ```
 
-### 5. アプリケーションのセットアップ
+### 5. Docker イメージのビルドと起動
+
+```bash
+sail　compose build
+sail　compose up -d
+```
+
+### 6. アプリケーションのセットアップ
 
 ```bash
 # Composerパッケージのインストール
@@ -54,7 +60,7 @@ docker compose exec fullstack-portal chmod -R 777 storage bootstrap/cache
 php artisan key:generate
 ```
 
-### 6. データベースのセットアップ
+### 7. データベースのセットアップ
 
 ```bash
 # マイグレーションの実行
