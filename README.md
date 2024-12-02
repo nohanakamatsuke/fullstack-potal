@@ -45,8 +45,8 @@ alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 ### 5. Docker イメージのビルドと起動
 
 ```bash
-sail　compose build
-sail　compose up -d
+sail build
+sail up -d
 ```
 
 ### 6. アプリケーションのセットアップ
