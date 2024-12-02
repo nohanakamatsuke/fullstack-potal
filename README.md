@@ -76,20 +76,4 @@ docker-compose exec fullstack-potal php artisan db:seed
 #### 基本設定
 
 - インデント: 2 スペース
-- PHP コードスタイル: Laravel Pint
-  - Laravel v9.3 以降の場合は Laravel Pint は標準搭載
-  - デフォルトの設定で使用可能
 
-### 設定ファイル
-
-- .editorconfig（プロジェクトルートにすでに配置）
-
-### コードチェック
-
-```bash
-# Dockerコンテナ内でコードスタイルをチェック（変更箇所を表示）
-docker compose exec laravel.test ./vendor/bin/pint --test
-
-# Dockerコンテナ内でコードをフォーマット
-docker compose exec laravel.test ./vendor/bin/pint
-```
