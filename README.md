@@ -36,7 +36,7 @@ cp .env.example .env
 composer require laravel/sail --dev
 ```
 
-### 4. エイリアスの設定
+### 4. Docker イメージのビルドと起動
 
 ```bash
 alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
@@ -49,7 +49,7 @@ sail build
 sail up -d
 ```
 
-### 6. アプリケーションのセットアップ
+### 5. アプリケーションのセットアップ
 
 ```bash
 # Composerパッケージのインストール
@@ -60,7 +60,7 @@ docker compose exec fullstack-portal chmod -R 777 storage bootstrap/cache
 php artisan key:generate
 ```
 
-### 7. データベースのセットアップ
+### 6. データベースのセットアップ
 
 ```bash
 # マイグレーションの実行
@@ -82,3 +82,20 @@ npm install -D tailwindcss
 #### 基本設定
 
 - インデント: 2 スペース
+- PHP コードスタイル: Laravel Pint
+  - Laravel v9.3 以降の場合は Laravel Pint は標準搭載
+  - デフォルトの設定で使用可能
+
+### 設定ファイル
+
+- .editorconfig（プロジェクトルートにすでに配置）
+
+### コードチェック
+
+```bash
+# Dockerコンテナ内でコードスタイルをチェック（変更箇所を表示）
+docker compose exec laravel.test ./vendor/bin/pint --test
+
+# Dockerコンテナ内でコードをフォーマット
+docker compose exec laravel.test ./vendor/bin/pint
+```
