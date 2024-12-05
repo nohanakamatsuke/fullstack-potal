@@ -28,7 +28,6 @@ services:
             - mailpit
             - selenium
     mysql:
-        platform: linux/x86_64
         image: 'mysql/mysql-server:8.0'
         ports:
             - '${FORWARD_DB_PORT:-3306}:3306'
@@ -53,7 +52,6 @@ services:
             retries: 3
             timeout: 5s
     phpmyadmin:
-        platform: linux/x86_64
         image: phpmyadmin/phpmyadmin
         ports:
             - '8081:80'

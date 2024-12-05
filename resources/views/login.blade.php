@@ -65,7 +65,6 @@
             document.addEventListener('DOMContentLoaded', function() {
                 const form = document.querySelector('form');
                 const csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
-
                 form.addEventListener('submit', function(e) {
                     e.preventDefault(); // デフォルトの送信を防止
 

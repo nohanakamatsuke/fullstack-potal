@@ -14,14 +14,12 @@
       {{-- アイコンとドロップダウンメニュー --}}
       <div class="relative">
         <button id="dropdownButton">
-        <button id="dropdownButton">
           <x-css-profile class="w-8 h-8" />
         </button>
         <div id="dropdownMenu" class="absolute right-0 w-48 mt-2 bg-white rouded-md shadow hidden">
           {{-- プロフィール機能は今回実装しないので、グレーアウト --}}
           <a href=""
             class="flex items-center justify-center grayscale block text-gray-600 line-through px-3 py-2 w-full">プロフィール</a>
-          {{-- ログアウトボタンを押した場合、ログアウトのルーティング実行 --}}
           {{-- ログアウトボタンを押した場合、ログアウトのルーティング実行 --}}
           <form id="logoutForm" action="{{ route('logout.attempt') }}" method="POST">
             @csrf
@@ -35,7 +33,6 @@
       </div>
 </header>
 
-
 {{-- 確認モーダル --}}
 <div id="logoutConfirmModal" class="z-50 fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center hidden">
   <div class="px-10 py-14 bg-white">
@@ -46,8 +43,6 @@
     </div>
   </div>
 </div>
-
-{{-- JavaScriptのクリックイベント --}}
 
 {{-- JavaScriptのクリックイベント --}}
 <script>

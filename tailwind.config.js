@@ -16,7 +16,8 @@ export default {
       },
       colors: {
         customMain: "#66CAC8",
-        customHoverMain: "#A5F2F0",
+
+        customHoverMain: "#82C5C4",
       },
     },
   },
