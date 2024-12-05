@@ -41,12 +41,13 @@ class ExpenseFormController extends MainController {
                 'date.*' => 'required|date',
                 'item.*' => 'required|string|max:255',
                 'purpose.*' => 'required|string|max:500',
-                'total_amount.*' => 'required|string|max:255',
+                'total_amount.*' => 'required| numeric',
             ], [
                 'required' => '全ての項目を入力してください',
                 'date' => '日付形式で入力してください',
                 'string' => '文字列として入力してください',
                 'max' => '最大 :max 文字まで入力可能です',
+                'numeric' => '金額は数値で入力してください'
             ] );
 
             $receiptFrontPaths = [];
