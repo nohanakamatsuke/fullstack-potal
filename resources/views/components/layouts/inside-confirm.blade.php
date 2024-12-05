@@ -44,4 +44,5 @@
             <p>{{ old("purpose.$i", $validated['purpose'][$i]) }}</p>
         </div>
     </div>
+
 </section>

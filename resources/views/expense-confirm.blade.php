@@ -1,4 +1,5 @@
-{{-- フルスタックポータル　ホーム --}}
+
+{{-- 確認画面　--}}
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 

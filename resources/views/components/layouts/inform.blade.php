@@ -30,7 +30,6 @@
                     class="w-full text-[6px] file:text-[7px] file:py-1 file:px-3 file:border-0 file:shadow-xl file:hover:shadow-none file:bg-gray-100">
             </div>
         </label>
-
 </section>
 {{-- 使用年月日エリア --}}
 <section>
@@ -66,4 +65,5 @@
     <span class="text-xs text-gray-500">「¥」や、区切り文字として「,」などを入れる必要はありません。</span>
     <input type="text" id="total_amount" name="total_amount[]" value="{{ old('total_amount.0') }}"
         class="w-full py-2 px-2 mt-1 border rounded-lg pr-10 shadow" placeholder="Type here">
+
 </section>

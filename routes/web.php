@@ -36,3 +36,4 @@ Route::post('/expence-register', [ExpenseFormController::class, 'store'])->middl
 Route::get('/test_comp', function () {
     return view('test_comp');
 })->name('test_comp');
+

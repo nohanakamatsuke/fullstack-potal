@@ -14,7 +14,6 @@
 </head>
 
 <body class="font-mono antialiased">
-
     <div class="flex flex-col">
         {{-- ヘッダー --}}
         <x-layouts.header :user_id="$user_id" :name="$name" />

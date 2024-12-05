@@ -2,11 +2,9 @@
 
 <header class="z-10 w-full h-22 items-center bg-customMain">
   <div class="flex p-6 justify-between">
-
     <a href="/">
       <h1 class="flex items-center text-xl">Fullstack-Portal</h1>
     </a>
-
     <div class="flex items-center gap-3">
       <div class="text-xs font-sans">
         @if (session('user_id') && session('name'))
