@@ -9,7 +9,6 @@ class AuthController extends Controller
 {
     // ログインフォームの表示
     public function showLoginForm()
-
     {
         $login_check = session('user_id');
         if ($login_check) {
