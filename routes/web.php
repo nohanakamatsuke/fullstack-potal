@@ -21,11 +21,8 @@ Route::get('/expense-confirm', [ExpenseFormController::class, 'show_expense_conf
 //確認画面表示
 Route::get('/expense-form', [ExpenseFormController::class, 'show_expense_form'])->middleware('auth')->name('expense.form');
 // データ登録 (POST)　経費申請完了
-Route::post('/expense_store', [ExpenseFormController::class, 'expence_store'])->middleware('auth')->name('expence.store');
-// Route::any('/expence_store', function () {
-//     return redirect()->route('expense.form')
-//         ->withErrors(['error' => '不正なアクセスが検出されました。']);
-// })->middleware('auth');
+Route::post('/expense_store', [ExpenseFormController::class, 'expense_store'])->middleware('auth')->name('expense.store');
+
 //ログイン用ルーティング
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.attempt');
@@ -36,4 +33,3 @@ Route::post('/expence-register', [ExpenseFormController::class, 'store'])->middl
 Route::get('/test_comp', function () {
     return view('test_comp');
 })->name('test_comp');
-
