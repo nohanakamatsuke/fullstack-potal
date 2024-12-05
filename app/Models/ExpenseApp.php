@@ -9,11 +9,25 @@ class ExpenseApp extends Model
 {
     use HasFactory;
 
+    protected $table = 'expense_app';
+
     protected $fillable = [
-        'start_date',
-        'end_date',
+        'user_id',
+        // 'name',
+        'use_date', // 修正されたカラム名
+        'expense_amount',
+        'purpose', // 修正されたカラム名
         'item',
-        'purpose',
+        'receipt_front', // 修正されたカラム名
+        'receipt_back',
         'total_amount',
+        'expense_app_line_templates',
+        'account_items',
+        'freee_sync_status',
     ];
+
+    public function users() //関数名は単数形がベスト
+    {
+        return $this->hasMany('App\User');
+    }
 }
