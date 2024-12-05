@@ -7,13 +7,13 @@ namespace App\Http\Controllers;
 
 use App\Models\ExpenseApp;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class ExpenseFormController extends MainController
 {
     public function show_expense_form(Request $request)
     {
-
         // 親クラスから、メソッドを呼び出す
         $this->show_home($request);
         $name = $this->name;
@@ -24,7 +24,6 @@ class ExpenseFormController extends MainController
         $prevurl = url()->previous();
 
         return view('expense-form', compact('user_id', 'name', 'prevurl'));
-
     }
 
     public function expense_form_submit_confirm(Request $request)
@@ -37,17 +36,15 @@ class ExpenseFormController extends MainController
         $formCount = count($request->input('date', []));
         session(['form_count' => $formCount]);
 
-        //dd( $formCount );
-
         // 必須項目のバリデート
         try {
             $validated = $request->validate([
-                'receipt_front.*' => 'nullable|string|max:255', // nullableで入力しなくてもOK
-                'receipt_back.*' => 'nullable|string|max:255',  // nullableで入力しなくてもOK
-                'date.*' => 'required|date',                   // 日付形式が必須
-                'item.*' => 'required|string|max:255',         // 必須かつ文字列
-                'purpose.*' => 'required|string|max:500',      // 必須かつ文字列
-                'total_amount.*' => 'required|string|max:255', // 必須で文字列
+                'receipt_front.*' => 'nullable|file|mimes:jpeg,png,jpg|max:2048', // 画像のバリデーション
+                'receipt_back.*' => 'nullable|file|mimes:jpeg,png,jpg|max:2048', // 画像のバリデーション
+                'date.*' => 'required|date',
+                'item.*' => 'required|string|max:255',
+                'purpose.*' => 'required|string|max:500',
+                'total_amount.*' => 'required|string|max:255',
             ], [
                 'required' => '全ての項目を入力してください',
                 'date' => '日付形式で入力してください',
@@ -55,18 +52,13 @@ class ExpenseFormController extends MainController
                 'max' => '最大 :max 文字まで入力可能です',
             ]);
 
-            // 未入力フィールドを空文字列で補完（全キー保証）
-            $validated['receipt_front'] = $validated['receipt_front'] ?? array_fill(0, count($validated['date']), '');
-            $validated['receipt_back'] = $validated['receipt_back'] ?? array_fill(0, count($validated['date']), '');
-            $validated['total_amount'] = $validated['total_amount'] ?? array_fill(0, count($validated['date']), '');
-
-            // ファイル保存処理
             $receiptFrontPaths = [];
             $receiptBackPaths = [];
 
+            // ファイル保存処理
             if ($request->hasFile('receipt_front')) {
                 foreach ($request->file('receipt_front') as $file) {
-                    $path = $file->store('receipts', 'public'); // 'storage/receipts'に保存
+                    $path = $file->store('receipts', 'public');
                     $receiptFrontPaths[] = $path;
                 }
             }
@@ -81,22 +73,19 @@ class ExpenseFormController extends MainController
             // セッション保存用データ作成
             $validated['receipt_front'] = $receiptFrontPaths ?: array_fill(0, count($validated['date']), '');
             $validated['receipt_back'] = $receiptBackPaths ?: array_fill(0, count($validated['date']), '');
+            $validated['total_amount'] = $validated['total_amount'] ?? array_fill(0, count($validated['date']), '');
 
-            // フォーム件数をセッションに保存
-            $formCount = count($validated['date']);
-            session(['form_count' => $formCount]);
-
-            // 入力データ全体をセッションに保存
+            // 入力データをセッションに保存
             session(['form_input' => $validated]);
         } catch (ValidationException $error) {
             return back()->withErrors($error->validator)->withInput();
-            // return redirect() -> intended( 'expense-confirm' );
         }
 
         // 確認画面に遷移
         return view('expense-confirm', compact('name', 'user_id', 'validated', 'formCount'));
     }
 
+    // GETメソッドで確認画面を表示
     public function show_expense_confirm(Request $request)
     {
 
@@ -104,36 +93,28 @@ class ExpenseFormController extends MainController
 
         // 親クラスから、メソッドを呼び出す
         $this->show_home($request);
+
         $name = $this->name;
         $user_id = $this->user_id;
 
-        return view('expense-confirm', compact('name', 'user_id'));
+        // 必要なデータをセッションに保存
+        session(['form_input' => $request->all()]);
 
+        return view('expense-confirm', compact('name', 'user_id'));
     }
 
-    //申請完了ボタン押下で、データベースへ登録するメソッド記入
+    //APIで登録する際のトークン取得用のメソッド　現状利用予定なし
     public function store(Request $request)
     {
-        // 配列データを取得
-        // $dates = $request->input('date');
-        // $items = $request->input('item');
-        // $purposes = $request->input('purpose');
-        // $totalAmounts = $request->input('total-amount');
-        $dates = $request->input('use_date');
+        $dates = $request->input('date');
         $items = $request->input('item');
         $purposes = $request->input('purpose');
         $receiptFronts = $request->input('receipt_front');
         $receiptBacks = $request->input('receipt_back');
         $totalAmounts = $request->input('total_amount');
 
-        // データベースに登録
-        foreach ($dates as $index => $startDate) {
+        foreach ($dates as $index => $date) {
             ExpenseApp::create([
-                // 'start_date' => $startDate,
-                // 'end_date' => $startDate, // 終了日が同じ場合はこのまま
-                // 'item' => $items[$index] ?? null,
-                // 'purpose' => $purposes[$index] ?? null,
-                // 'total_amount' => $totalAmounts[$index] ?? null,
                 'user_id' => auth()->id(),
                 'use_date' => $useDate,
                 'item' => $items[$index] ?? null,
@@ -154,55 +135,68 @@ class ExpenseFormController extends MainController
     //データベースへ直接経費申請するメソッド(csvファイル抽出用)
     public function expence_store(Request $request)
     {
-        // バリデーション
-        $validated = $request->validate([
-            'use_date' => 'required|array',
-            'use_date.*' => 'required|date', // 日付形式
-            'item' => 'required|array',
-            'item.*' => 'required|string|max:255',
-            'purpose' => 'required|array',
-            'purpose.*' => 'required|string|max:500',
-            'receipt_front' => 'nullable|array',
-            'receipt_front.*' => 'nullable|string|max:255',
-            'receipt_back' => 'nullable|array',
-            'receipt_back.*' => 'nullable|string|max:255',
-            'total_amount' => 'required|array',
-            'total_amount.*' => 'required|numeric|min:0',
-        ]);
-
-        // データベースへの登録
+        //dd('expence_storeに入った');
+        logger()->info('リクエストデータ1:', $request->all());
+        logger()->info('セッションデータ1:', session()->all());
+        logger()->info('セッションデータ1:', session()->all());
+        // セッションからデータを取得
+        $validated = session('form_input');
+        if (! $validated) {
+            return redirect()->route('expense.form')->withErrors(['error' => 'セッションデータが見つかりません。']);
+        }
+        // dd($request);
+        // dd(session('date'));
+        // セッションデータを補完
+        // $sessionData = $request->session()->all();
+        $sessionData = session()->all();
         try {
-            DB::beginTransaction(); // トランザクション開始
+            DB::beginTransaction();
+            $dates = $sessionData['date'] ?? []; //ここで値が入っていない　
+            // dd(session('date'));
 
-            $dates = $validated['use_date'];
-            $items = $validated['item'];
-            $purposes = $validated['purpose'];
-            $receiptFronts = $validated['receipt_front'] ?? [];
-            $receiptBacks = $validated['receipt_back'] ?? [];
-            $totalAmounts = $validated['total_amount'];
+            $items = $sessionData['item'] ?? [];
 
-            foreach ($dates as $index => $startDate) {
+            $purposes = $sessionData['purpose'] ?? [];
+
+            $totalAmounts = $sessionData['total_amount'] ?? [];
+            $receiptFrontPaths = $sessionData['receipt_front'] ?? [];
+            $receiptBackPaths = $sessionData['receipt_back'] ?? [];
+            logger()->info('リクエストデータ2:', $request->all());
+            logger()->info('セッションデータ2:', session()->all());
+
+            // データベースに登録 ここでdあてｓ
+            // dd($dates);
+            foreach ($dates as $index => $date) {
                 ExpenseApp::create([
                     'user_id' => auth()->id(),
-                    'use_date' => $startDate, // 修正
-                    'item' => $items[$index] ?? null,
-                    'purpose' => $purposes[$index] ?? null,
-                    'receipt_front' => $receiptFronts[$index] ?? null,
-                    'receipt_back' => $receiptBacks[$index] ?? null,
-                    'total_amount' => $totalAmounts[$index] ?? null,
+                    'use_date' => $startDate,  // 修正
+                    'item' => $items[$index] ?? '',
+                    'purpose' => $purposes[$index] ?? '',
+                    'receipt_front' => $receiptFrontPaths[$index] ?? '',
+                    'receipt_back' => $receiptBackPaths[$index] ?? '',
+                    'total_amount' => $totalAmounts[$index] ?? '',
                     'expense_app_line_templates' => 'default_template',
                     'account_items' => 'default_account',
                     'freee_sync_status' => 0,
                 ]);
             }
+            logger()->info('リクエストデータ3:', $request->all());
+            logger()->info('セッションデータ3:', session()->all());
 
-            DB::commit(); // トランザクションコミット
+            DB::commit();
+
+            session()->flash('success', '経費申請が登録されました！');
+
+            if (! $validated) {
+                return redirect()->route('expense.form')->withErrors(['error' => 'セッションデータが見つかりません。']);
+            }
+
+            return redirect()->route('home');
         } catch (\Exception $e) {
-            DB::rollBack(); // トランザクションロールバック
+            DB::rollBack();
+            logger()->error('エラー内容', ['exception' => $e->getMessage()]);
 
             return back()->withErrors(['error' => '経費申請の登録中にエラーが発生しました。'])->withInput();
         }
-
-        return redirect()->route('test_comp')->with('success', '経費申請が登録されました！');
     }
 }

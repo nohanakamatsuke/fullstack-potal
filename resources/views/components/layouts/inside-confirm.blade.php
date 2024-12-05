@@ -1,53 +1,47 @@
 <section id="form-confirm" class="bg-gray-300 mt-10 rounded-md ">
     <div class="pl-8 pr-24 py-8">
-        <form action="{{ route('expence-store') }}" method="POST">
-            @csrf
-
-            @php
-                // セッションからデータを取得
-                $formInput = session('form_input', []);
-            @endphp
-
-            {{-- 入力データをループで表示 --}}
-            @foreach ($formInput['date'] as $index => $date)
-                <div class="flex border-b-2 border-gray-400">
-                    <label>用途項目:</label>
-                    <input type="text" name="item[]" value="{{ $formInput['item'][$index] }}" readonly>
-                </div>
-                <div class="flex border-b-2 border-gray-400">
-                    <label>使用年月日:</label>
-                    <input type="date" name="use_date[]" value="{{ $date }}" readonly>
-                </div>
-                <div class="flex border-b-2 border-gray-400">
-                    <label>合計金額:</label>
-                    <input type="text" name="total_amount[]" value="{{ $formInput['total_amount'][$index] ?? '' }}"
-                        readonly>
-                </div>
-                <div class="flex border-b-2 border-gray-400">
-                    <label>用途詳細:</label>
-                    <input type="text" name="purpose[]" value="{{ $formInput['purpose'][$index] }}" readonly>
-                </div>
-                <div class="flex border-b-2 border-gray-400">
-                    <label>領収書画像(表面):</label>
-                    @if (!empty($formInput['receipt_front'][$index]))
-                        <img src="{{ asset('storage/' . $formInput['receipt_front'][$index]) }}" alt="表面画像"
-                            class="w-32 h-32 object-cover border border-gray-400">
-                    @else
-                        <span>画像なし</span>
-                    @endif
-                </div>
-                <div class="flex border-b-2 border-gray-400">
-                    <label>領収書画像(裏面):</label>
-                    @if (!empty($formInput['receipt_back'][$index]))
-                        <img src="{{ asset('storage/' . $formInput['receipt_back'][$index]) }}" alt="裏面画像"
-                            class="w-32 h-32 object-cover border border-gray-400">
-                    @else
-                        <span>画像なし</span>
-                    @endif
-                </div>
-            @endforeach
-
-
-        </form>
+        <!-- 用途項目 -->
+        <div class="flex border-b-2 border-gray-400">
+            <label>用途項目:</label>
+            <p>{{ old("item.$i", $validated['item'][$i]) }}</p>
+        </div>
+        <!-- 使用年月日 -->
+        <div class="flex border-b-2 border-gray-400">
+            <label>使用年月日:</label>
+            {{-- <p>{{ old("date.$i", $validated['date'][$i]) }}</p> --}}
+            <p>{{ "date.$i", $validated['date'][$i] }}</p>
+        </div>
+        <!-- 領収書の画像（表） -->
+        <div class="flex flex-col items-center space-y-2 border-b-2 border-gray-400 pb-2.5">
+            <label>領収書の画像（表）:</label>
+            <p>{{ $validated['receipt_front'][$i] ?? '画像なし' }}</p>
+            @if (!empty($validated['receipt_front'][$i]))
+                <img src="{{ asset('storage/' . $validated['receipt_front'][$i]) }}" alt="領収書画像"
+                    class="rounded w-30 h-30 max-w-xs object-contain my-2">
+            @else
+                <span>画像なし</span>
+            @endif
+        </div>
+        <!-- 領収書の画像（裏） -->
+        <div class="flex flex-col items-center space-y-2 border-b-2 border-gray-400 pb-2.5">
+            <label>領収書の画像（裏）:</label>
+            <p>{{ $validated['receipt_back'][$i] ?? '画像なし' }}</p>
+            @if (!empty($validated['receipt_back'][$i]))
+                <img src="{{ asset('storage/' . $validated['receipt_back'][$i]) }}" alt="領収書画像"
+                    class="rounded w-30 h-30 max-w-xs object-contain my-2">
+            @else
+                <span>画像なし</span>
+            @endif
+        </div>
+        <!-- 合計金額 -->
+        <div class="flex border-b-2 border-gray-400">
+            <label>合計金額:</label>
+            <p>{{ old("total_amount.$i", $validated['total_amount'][$i]) }}円</p>
+        </div>
+        <!-- 用途の詳細 -->
+        <div class="flex border-b-2 border-gray-400 space-x-5">
+            <label>用途の詳細:</label>
+            <p>{{ old("purpose.$i", $validated['purpose'][$i]) }}</p>
+        </div>
     </div>
 </section>
