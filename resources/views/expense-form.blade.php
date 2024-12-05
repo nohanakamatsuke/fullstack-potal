@@ -22,7 +22,7 @@
     {{-- 戻るボタン --}}
     <x-layouts.return-button :prevurl="$prevurl" />
 
-    <form action="{{ route('expense.submit') }}" method="POST" enctype="multipart/form-data"
+    <form action="{{ route('expense.submit.confirm') }}" method="POST" enctype="multipart/form-data"
       class="w-4/5	max-w-4xl	mt-5 mx-auto">
       @csrf
       <h1 class="border-b-2 border-black text-2xl">経費申請フォーム</h1>
@@ -49,10 +49,10 @@
       </div>
       {{-- エラーメッセージ --}}
       @if ($errors->any())
-        <div class="flex items-center space-x-1">
-          <x-heroicon-c-exclamation-triangle class="w-5 h-5 text-red-500" />
-          <span class="text-red-500 text-sm text-center">{{ $errors->first() }}</span>
-        </div>
+      <div class="flex items-center space-x-1">
+        <x-heroicon-c-exclamation-triangle class="w-5 h-5 text-red-500" />
+        <span class="text-red-500 text-sm text-center">{{ $errors->first() }}</span>
+      </div>
       @endif
 
       {{-- 確認ボタン --}}
@@ -69,7 +69,11 @@
   document.addEventListener('DOMContentLoaded', function() {
 
     // インデックス番号を振り当てる
-    let formIndex = {{ session('form_count', 1) }};
+    let formIndex = {
+      {
+        session('form_count', 1)
+      }
+    };
     // 最大フォーム数を10件に設定
     const MAX_FORMS = 10;
 
