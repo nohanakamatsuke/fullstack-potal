@@ -20,6 +20,8 @@ services:
             IGNITION_LOCAL_SITES_PATH: '${PWD}'
         volumes:
             - '.:/var/www/html'
+            - '/etc/letsencrypt:/etc/letsencrypt:ro' 
+
         networks:
             - sail
         depends_on:
