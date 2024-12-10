@@ -43,10 +43,8 @@ class CsvTestExportController extends Controller
                     $expense->item,
                     $expense->total_amount,
                     $expense->purpose,
-                    $expense->receipts_front,
-                    $expense->receipts_back,
-                    $expense->purpose,
-
+                    $expense->receipt_front ? asset('storage/'.$expense->receipt_front) : '', // 画像のURLを生成
+                    $expense->receipt_back ? asset('storage/'.$expense->receipt_back) : '',  // 画像のURLを生成
                 ]));
             }
             fclose($file);
