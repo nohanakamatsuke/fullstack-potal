@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('expense_app', function (Blueprint $table) {
             $table->id('expense_id'); //経費申請id
-            $table->integer('user_id'); //社員情報　外部キー
+            $table->string('user_id'); //社員情報　外部キー
             $table->date('application_date')->nullable(); //申請日
             $table->integer('expense_amount')->nullable(); //経費申請額
             $table->text('description'); //申請内容

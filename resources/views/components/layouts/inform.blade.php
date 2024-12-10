@@ -2,35 +2,34 @@
 <section class="flex flex-col space-y-2 mt-5">
   <label for="">領収書の画像</label>
   <span class="text-xs text-gray-500">※領収書は捨てずに保管しておいてください。</span>
-  <div class="w-full flex items-center justify-between xl:justify-center xl:gap-20">
+  <div class="w-full flex items-center justify-center sm:gap-20 gap-5">
     {{-- 表面 --}}
 
-    <label for="receipt-front"
-      class="mt-3 px-2 py-3 xl:px-20 xl:py-10 flex flex-col border-dashed border-2 border-gray-500 bg-gray-200 rounded-md cursor-pointer hover:bg-gray-100 transition">
+    <label for="receipt_front"
+      class="mt-3 px-2 py-3 md:px-20 md:py-10 sm:px-16 sm:py-6 flex flex-col border-dashed border-2 border-gray-500 bg-gray-200 rounded-md cursor-pointer hover:bg-gray-100 transition">
       <div class="flex flex-col items-center w-full">
         <x-heroicon-o-arrow-up-tray class="w-6 h-6 text-gray-500" />
         <span class="text-gray-500">表面を送付</span>
       </div>
       <div class="mt-1 w-26">
-        <input type="file" id="receipt-front" name="receipt-front[]" value="{{ old('receipt-front.0') }}"
+        <input type="file" id="receipt_front" name="receipt_front[]" value="{{ old('receipt_front.0') }}"
           class="w-full text-[6px] file:py-1 file:px-3 file:text-[7px] file:border-0 file:shadow-xl file:hover:shadow-none file:bg-gray-100">
       </div>
     </label>
 
     {{-- 裏面 --}}
 
-    <label for="receipt-back"
-      class="mt-3 px-2 py-3 xl:px-20 xl:py-10 flex flex-col border-dashed border-2 border-gray-500 bg-gray-200 rounded-md cursor-pointer hover:bg-gray-100 transition">
+    <label for="receipt_back"
+      class="mt-3 px-2 py-3 md:px-20 md:py-10 sm:px-16 sm:py-6 flex flex-col border-dashed border-2 border-gray-500 bg-gray-200 rounded-md cursor-pointer hover:bg-gray-100 transition">
       <div class="flex flex-col items-center w-full">
         <x-heroicon-o-arrow-up-tray class="w-6 h-6 text-gray-500" />
         <span class="text-gray-500">裏面を送付</span>
       </div>
       <div class="mt-1 w-26">
-        <input type="file" id="receipt-back" name="receipt-back[]" value="{{ old('receipt-back.0') }}"
+        <input type="file" id="receipt_back" name="receipt_back[]" value="{{ old('receipt_back.0') }}"
           class="w-full text-[6px] file:text-[7px] file:py-1 file:px-3 file:border-0 file:shadow-xl file:hover:shadow-none file:bg-gray-100">
       </div>
     </label>
-
 </section>
 {{-- 使用年月日エリア --}}
 <section>
@@ -62,8 +61,9 @@
 </section>
 {{-- 合計金額 --}}
 <section class="flex flex-col">
-  <label for="total-amount">合計金額</label>
-  <span class="text-xs text-gray-500">「¥」や、区切り文字として「,」などを入れる必要はありません。</span>
-  <input type="text" id="total-amount" name="total-amount[]" value="{{ old('total-amount.0') }}"
+  <label for="total_amount">合計金額</label>
+  <span class="text-xs text-gray-500">円や区切り文字として「,」などを入れる必要はありません。</span>
+  <input type="text" id="total_amount" name="total_amount[]" value="{{ old('total_amount.0') }}"
     class="w-full py-2 px-2 mt-1 border rounded-lg pr-10 shadow" placeholder="Type here">
+
 </section>

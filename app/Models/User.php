@@ -55,4 +55,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function expenceApp() //関数名は単数形がベスト
+    {
+        return $this->belongsTo('App\ExpenceApp');
+    }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -20,16 +21,17 @@ class UserSeeder extends Seeder {
             'phone_number' => '0000000000',
             'email' => 'test1@example.com',
             'role_id' => '1',
-            'password' => Hash::make( 'password' ), // パスワードをハッシュ化
-        ] );
+            'password' => Hash::make('password'), // パスワードをハッシュ化
+        ]);
         // サンプルユーザー2
-        User::create( [
+        User::create([
+
             'user_id' => 'user5678', // ユニークなユーザーID
             'name' => 'テストユーザー2',
             'phone_number' => '1111111111',
             'email' => 'test2@example.com',
             'role_id' => '2',
-            'password' => Hash::make( 'password' ), // パスワードをハッシュ化
-        ] );
+            'password' => Hash::make('password'), // パスワードをハッシュ化
+        ]);
     }
 }
