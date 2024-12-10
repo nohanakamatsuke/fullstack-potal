@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::table('expense_app', function (Blueprint $table) {
             // 既存のカラム 'application_date' を 'use_date' に変更
             $table->renameColumn('application_date', 'use_date');
+            // 新しいカラム 'total_amount' を追加
+            $table->renameColumn('expense_amount', 'total_amount');
 
             // コメントを追加
             $table->text('use_date') // データ型も指定
@@ -44,12 +46,11 @@ return new class extends Migration
             $table->text('receipt_back') //追加
                 ->comment('[領収書画像(裏面)] カラム追加');
 
-            // 新しいカラム 'total_amount' を追加
-            $table->text('total_amount') //追加
-                ->comment('[合計金額] カラム追加');
+            $table->string('name') //追加
+                ->comment('名前 カラム追加');
         });
-
     }
+
     /**
      * Reverse the migrations.
      */

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,8 +12,8 @@ class ExpenseApp extends Model
     protected $table = 'expense_app';
 
     protected $fillable = [
-        'user_id',
-        // 'name',
+        'user_id', //Userからの外部キー
+        'name', //Userからの外部キー
         'use_date', // 修正されたカラム名
         'expense_amount',
         'purpose', // 修正されたカラム名
