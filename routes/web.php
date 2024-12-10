@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CsvTestExportController;
 use App\Http\Controllers\ExpenseFormController;
 use App\Http\Controllers\ExpenseMenuController;
 use App\Http\Controllers\MainController;
@@ -33,3 +34,7 @@ Route::post('/expence-register', [ExpenseFormController::class, 'store'])->middl
 Route::get('/test_comp', function () {
     return view('test_comp');
 })->name('test_comp');
+
+//テスト用csv出力
+Route::get('/csvMonitor', [CsvTestExportController::class, 'csvMonitor'])->name('csvMonitor');
+Route::post('/testcsv', [CsvTestExportController::class, 'exportCsv'])->name('testcsv');

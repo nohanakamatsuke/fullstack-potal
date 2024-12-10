@@ -14,7 +14,6 @@ class ExpenseMenuController extends MainController
         // 親クラスから、メソッドを呼び出す
         $this->show_home($request);
 
-
         // compactは通常の変数しか扱えないので、$thisのプロパティをローカル変数に変換
         $name = $this->name;
         $user_id = $this->user_id;

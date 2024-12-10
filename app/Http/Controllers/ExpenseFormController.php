@@ -146,6 +146,7 @@ class ExpenseFormController extends MainController
         try {
             DB::beginTransaction();
             $dates = $validated['date'] ?? [];
+            $names = $validated['name'] ?? [];
             $items = $validated['item'] ?? [];
             $purposes = $validated['purpose'] ?? [];
             $receiptFrontPaths = $validated['receipt_front'] ?? [];
@@ -157,6 +158,7 @@ class ExpenseFormController extends MainController
             foreach ($dates as $index => $date) {
                 ExpenseApp::create([
                     'user_id' => auth()->id(),
+                    'name' => $name ?? '',
                     'use_date' => $date,
                     'item' => $items[$index] ?? '',
                     'purpose' => $purposes[$index] ?? '',
