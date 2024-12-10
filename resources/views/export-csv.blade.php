@@ -16,6 +16,7 @@
         <table class='table-auto'>
             <tr>
                 <th>社員番号</th>
+                <th>名前</th>
                 <th>使用年月日</th>
                 <th>経費科目</th>
                 <th>申請内容詳細</th>
@@ -26,6 +27,7 @@
             @foreach ($expenses as $expenses)
                 <tr>
                     <td>{{ $expenses['user_id'] }}</td>
+                    <td>{{ $expenses['name'] }}</td>
                     <td>{{ $expenses['use_date'] }}</td>
                     <td>{{ $expenses['expense_app_line_templates'] }}</td>
                     <td>{{ $expenses['purpose'] }}</td>

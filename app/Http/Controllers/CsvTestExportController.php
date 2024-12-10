@@ -30,7 +30,7 @@ class CsvTestExportController extends Controller
             // ヘッダー行を追加
             fputcsv($file, array_map(function ($header) {
                 return mb_convert_encoding($header, 'SJIS', 'UTF-8');
-            }, ['ユーザーID', '使用日', '用途項目', '金額', '目的']));
+            }, ['ユーザーID', '名前', '使用日', '経費項目', '金額', '目的', 'レシート（表）', 'レシート（裏）']));
 
             // データをCSVに書き込む
             foreach ($expenses as $expense) {
@@ -38,10 +38,15 @@ class CsvTestExportController extends Controller
                     return mb_convert_encoding($field, 'SJIS', 'UTF-8');
                 }, [
                     $expense->user_id,
+                    $expense->name,
                     $expense->use_date,
                     $expense->item,
                     $expense->total_amount,
                     $expense->purpose,
+                    $expense->receipts_front,
+                    $expense->receipts_back,
+                    $expense->purpose,
+
                 ]));
             }
             fclose($file);

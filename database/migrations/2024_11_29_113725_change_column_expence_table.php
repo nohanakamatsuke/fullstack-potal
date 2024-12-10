@@ -46,8 +46,9 @@ return new class extends Migration
             $table->text('receipt_back') //追加
                 ->comment('[領収書画像(裏面)] カラム追加');
 
+            $table->string('name') //追加
+                ->comment('名前 カラム追加');
         });
-
     }
 
     /**
