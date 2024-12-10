@@ -38,3 +38,8 @@ Route::get('/test_comp', function () {
 //テスト用csv出力
 Route::get('/csvMonitor', [CsvTestExportController::class, 'csvMonitor'])->name('csvMonitor');
 Route::post('/testcsv', [CsvTestExportController::class, 'exportCsv'])->name('testcsv');
+
+//画像のダウンロードようにテスト作成
+Route::get('/export/download_storage', [ExportController::class, 'download_storage'])->name('export.download_storage');
+Route::get('/export/download_response', [ExportController::class, 'download_response'])->name('export.download_response');
+Route::get('/export/csv_stream', [ExportController::class, 'csv_stream'])->name('export.csv_stream');
