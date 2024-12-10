@@ -22,6 +22,7 @@ class ExpenceSeeder extends Seeder
             'purpose' => '京橋から東京駅までの乗車賃',
             'total_amount' => '300',
             'user_id' => '_1234', //userテーブルから取得予定
+            'name' => '山田太郎1号',
             'account_items' => '電車代',
             'freee_sync_status' => '0',
         ]);
@@ -35,6 +36,7 @@ class ExpenceSeeder extends Seeder
             'purpose' => '京橋から東京駅までの乗車賃',
             'total_amount' => '400',
             'user_id' => '_5678', //userテーブルから取得予定
+            'name' => '山田太郎2号',
             'account_items' => '電車代',
             'freee_sync_status' => '0',
         ]);
@@ -48,6 +50,7 @@ class ExpenceSeeder extends Seeder
             'purpose' => '京橋から東京駅までの乗車賃',
             'total_amount' => '500',
             'user_id' => '_9012', //userテーブルから取得予定
+            'name' => '山田花子',
             'account_items' => '電車代',
             'freee_sync_status' => '0',
         ]);
