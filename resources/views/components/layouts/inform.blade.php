@@ -50,6 +50,7 @@
     <option value="train_basic">交通費（乗車券）</option>
     <option value="equipment">備品・消耗品</option>
     <option value="advance_payment">立替経費（部費、社内用品など）</option>
+    <option value="meeting">会議費</option>
     <option value="others">その他</option>
   </select>
 </section>
