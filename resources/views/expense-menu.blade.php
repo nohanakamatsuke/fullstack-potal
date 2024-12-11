@@ -1,4 +1,4 @@
-{{-- 経費メニュー --}}
+<!-- {{-- 経費メニュー --}} -->
 
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -9,20 +9,20 @@
     <title>Fullstack-Portal</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    {{-- tailwind cssを利用する --}}
+    <!-- {{-- tailwind cssを利用する --}} -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="font-mono antialiased">
 
     <div class="flex flex-col">
-        {{-- ヘッダー --}}
+        <!-- {{-- ヘッダー --}} -->
         <x-layouts.header :user_id="$user_id" :name="$name" />
 
-        {{-- 戻るボタン --}}
+        <!-- {{-- 戻るボタン --}} -->
         <x-layouts.return-button :prevurl="$prevurl" />
 
-        {{-- メニューボタン --}}
+        <!-- {{-- メニューボタン --}} -->
         <div class="mx-auto mt-8 flex flex-col h-auto items-center">
             <div class="grid grid-cols-2 xl:grid-cols-4 gap-8 sm:gap-10 lg:gap-20 text-lg md:text-2xl lg:text-3xl">
                 @foreach ($inExpenseMenuButton as $button)
@@ -31,14 +31,14 @@
             </div>
         </div>
 
-        {{-- 履歴一覧表示 --}}
+        <!-- {{-- 履歴一覧表示 --}} -->
         <div class="mx-auto mt-20 space-y-3 text-gray-700">
             <p class="text-sm">直近の履歴</p>
             @foreach ($expenseHistory as $history => $status)
                 <div class="flex">
                     <p>{{ $history }}</p>
 
-                    {{-- ステータスバッチ 条件分岐 --}}
+                    <!-- {{-- ステータスバッチ 条件分岐 --}} -->
                     @if ($status === '承認')
                         <span
                             class="block flex border border-black w-12 h-5 ml-5 bg-green-400 justify-center items-center font-thin">
@@ -53,7 +53,30 @@
                 </div>
             @endforeach
         </div>
-
+        <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>申請者</th>
+                <th>金額</th>
+                <th>日付</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse ($expenses as $expense)
+                <tr>
+                    <td>{{ $expense->id }}</td>
+                    <td>{{ $expense->applicant }}</td>
+                    <td>{{ $expense->amount }}</td>
+                    <td>{{ $expense->use_date}}</td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="4">履歴がありません。</td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
     </div>
 
 </body>
