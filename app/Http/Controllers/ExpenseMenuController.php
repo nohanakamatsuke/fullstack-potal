@@ -20,7 +20,7 @@ class ExpenseMenuController extends MainController
 
         $inExpenseMenuButton = [
             ['label' => '申請', 'status' => 1, 'route' => 'expense-form'],
-            ['label' => '履歴', 'status' => 0, 'route' => ''],
+            ['label' => '履歴', 'status' => 0, 'route' => ''],//後で消す　ここに履歴一覧のページを入れれば飛ばせる
         ];
         // ExpenseAppモデルから必要なカラムのみ取得
         $expenses = ExpenseApp::where('user_id', $user_id)
@@ -39,10 +39,11 @@ class ExpenseMenuController extends MainController
             $expenseHistory[$key] = $expense_status;
         }
 
+
         //直前のページURLを取得
         $prevurl = url()->previous();
 
-        return view('expense-menu', compact('user_id', 'name', 'inExpenseMenuButton', 'expenseHistory', 'prevurl'));
+        return view('expense-menu', compact('user_id', 'name', 'inExpenseMenuButton', 'expenseHistory', 'prevurl','expenses'));
     }
 
     public function create()

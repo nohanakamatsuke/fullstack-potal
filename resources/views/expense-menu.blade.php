@@ -1,4 +1,4 @@
-{{-- 経費メニュー --}}
+<!-- {{-- 経費メニュー --}} -->
 
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -9,20 +9,20 @@
     <title>Fullstack-Portal</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    {{-- tailwind cssを利用する --}}
+    <!-- {{-- tailwind cssを利用する --}} -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="font-mono antialiased">
 
     <div class="flex flex-col">
-        {{-- ヘッダー --}}
+        <!-- {{-- ヘッダー --}} -->
         <x-layouts.header :user_id="$user_id" :name="$name" />
 
-        {{-- 戻るボタン --}}
+        <!-- {{-- 戻るボタン --}} -->
         <x-layouts.return-button :prevurl="$prevurl" />
 
-        {{-- メニューボタン --}}
+        <!-- {{-- メニューボタン --}} -->
         <div class="mx-auto mt-8 flex flex-col h-auto items-center">
             <div class="grid grid-cols-2 xl:grid-cols-4 gap-8 sm:gap-10 lg:gap-20 text-lg md:text-2xl lg:text-3xl">
                 @foreach ($inExpenseMenuButton as $button)
