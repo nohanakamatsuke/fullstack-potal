@@ -28,7 +28,7 @@
         @foreach ($fillterdHomeButton as $button)
           <x-layouts.button :label="$button['label']" :status="$button['status']" :route="$button['route']" :role="$button['role']" />
         @endforeach
-        @if ($role === 2)
+        @if ($role === 1)
           <form action="{{ route('testcsv') }}" method="post">
             @csrf
             <button type="submit"

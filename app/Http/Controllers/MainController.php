@@ -29,22 +29,22 @@ class MainController extends Controller {
 
         // ホームボタンの情報を、label, status, routeの配列で指定する
         $homeButton = [
-            [ 'label' => '経費', 'status' => 1, 'route' => 'expense-menu', 'role' => 1 ],
-            [ 'label' => '欠勤'.PHP_EOL.'遅刻', 'status' => 0, 'route' => '', 'role' => 1 ],
-            [ 'label' => '有休', 'status' => 0, 'route' => '', 'role' => 1 ],
-            [ 'label' => '勤務時間変更'.PHP_EOL.'休暇取得', 'status' => 0, 'route' => '', 'role' => 1 ],
-            // [ 'label' => 'CSV', 'status' => 1, 'route' => 'csvMonitor', 'role' => 2 ],
+            [ 'label' => '経費', 'status' => 1, 'route' => 'expense-menu', 'role' => 0 ],
+            [ 'label' => '欠勤'.PHP_EOL.'遅刻', 'status' => 0, 'route' => '', 'role' => 0 ],
+            [ 'label' => '有休', 'status' => 0, 'route' => '', 'role' => 0 ],
+            [ 'label' => '勤務時間変更'.PHP_EOL.'休暇取得', 'status' => 0, 'route' => '', 'role' => 0 ],
+            // [ 'label' => 'CSV', 'status' => 1, 'route' => 'csvMonitor', 'role' => 1 ],
         ];
 
         // ユーザーの権限によって、ビューに渡す配列をフィルタリングする
         $fillterdHomeButton = collect($homeButton)->filter(function($button) use($role){
 
           // 管理者の場合は、全てのボタンを表示
-          if($role === 2){
+          if($role === 1){
             return true;
           };
           // それ以外は、role = 1のボタンのみ表示
-          return $button['role'] === 1;
+          return $button['role'] === 0;
         })->all();
 
         //直前のページURLを取得
