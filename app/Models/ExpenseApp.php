@@ -26,8 +26,8 @@ class ExpenseApp extends Model
         'freee_sync_status',
     ];
 
-    public function users() //関数名は単数形がベスト
-    {
-        return $this->hasMany('App\User');
-    }
+    public function user()  // 単数形に修正
+{
+    return $this->belongsTo(User::class, 'user_id', 'user_id');
+}
 }

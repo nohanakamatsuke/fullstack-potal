@@ -32,28 +32,29 @@
         </div>
 
         {{-- 履歴一覧表示 --}}
-        <div class="mx-auto mt-20 space-y-3 text-gray-700">
-            <p class="text-sm">直近の履歴</p>
-            @foreach ($expenseHistory as $history => $status)
-                <div class="flex">
-                    <p>{{ $history }}</p>
+        <div class="w-3/4 m-auto ">
+            <div class="mx-auto mt-20 space-y-3 text-gray-700">
+                <p class="text-sm">直近の履歴</p>
+                @foreach ($expenseHistory as $history => $status)
+                    <div class="flex">
+                        <p>{{ $history }}</p>
 
-                    {{-- ステータスバッチ 条件分岐 --}}
-                    @if ($status === '承認')
-                        <span
-                            class="block flex border border-black w-12 h-5 ml-5 bg-green-400 justify-center items-center font-thin">
-                            承認
-                        </span>
-                    @else
-                        <span
-                            class="block flex border border-black w-16 h-5 ml-5 bg-yellow-400 justify-center items-center font-thin">
-                            未承認
-                        </span>
-                    @endif
-                </div>
-            @endforeach
+                        {{-- ステータスバッチ 条件分岐 --}}
+                        @if ($status === '承認')
+                            <span
+                                class="block flex border border-black w-12 h-5 ml-5 bg-green-400 justify-center items-center font-thin">
+                                承認
+                            </span>
+                        @else
+                            <span
+                                class="block flex border border-black w-20 h-5 ml-5 bg-yellow-400 justify-center items-center font-thin">
+                                未承認
+                            </span>
+                        @endif
+                    </div>
+                @endforeach
+            </div>
         </div>
-
     </div>
 
 </body>

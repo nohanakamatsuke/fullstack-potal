@@ -31,6 +31,7 @@ class User extends Authenticatable
     protected $fillable = [
         'user_id',
         'password',
+        'name',
     ];
 
     /**
@@ -56,8 +57,10 @@ class User extends Authenticatable
         ];
     }
 
-    public function expenceApp() //関数名は単数形がベスト
+    public function expenceApps() //関数名は単数形がベスト
     {
-        return $this->belongsTo('App\ExpenceApp');
+        // UserモデルからExpenseAppモデルへの1対多のリレーションを定義
+        // nameカラムを使用して関連付け
+        return $this->hasMany(ExpenseApp::class, 'user_id', 'user_id');
     }
 }

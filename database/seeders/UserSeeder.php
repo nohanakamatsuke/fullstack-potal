@@ -20,17 +20,17 @@ class UserSeeder extends Seeder {
             'name' => 'テストユーザー1',
             'phone_number' => '0000000000',
             'email' => 'test1@example.com',
-            'role_id' => '1',
+            'role_id' => '0',
             'password' => Hash::make('password'), // パスワードをハッシュ化
         ]);
         // サンプルユーザー2
         User::create([
 
             'user_id' => 'user5678', // ユニークなユーザーID
-            'name' => 'テストユーザー2',
+            'name' => '',
             'phone_number' => '1111111111',
             'email' => 'test2@example.com',
-            'role_id' => '2',
+            'role_id' => '1',
             'password' => Hash::make('password'), // パスワードをハッシュ化
         ]);
     }
