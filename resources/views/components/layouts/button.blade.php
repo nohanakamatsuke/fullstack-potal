@@ -7,11 +7,11 @@
   @if ($route)
     <a href="{{ $route }}">
       <button
-        class="w-32 h-32 sm:w-48 sm:h-48 xl:w-56 xl:h-56 bg-white hover:bg-white border-2 border-customMain shadow shadow-customMain rounded-3xl active:scale-95 transition transition-transform hover:shadow-none">{{ $label }}</button>
+        class="w-32 h-32 sm:w-48 sm:h-48 xl:w-56 xl:h-56 bg-white hover:bg-white border-2 border-customMain shadow-md shadow-customMain rounded-3xl active:scale-95 transition transition-transform hover:shadow-none">{{ $label }}</button>
     </a>
   @else
     <button
-      class="w-32 h-32  sm:w-48 sm:h-48 xl:w-56 xl:h-56 bg-white hover:bg-white border-2 border-customMain shadow shadow-customMain rounded-3xl active:scale-95 transition transition-transform hover:shadow-none">{{ $label }}</button>
+      class="w-32 h-32  sm:w-48 sm:h-48 xl:w-56 xl:h-56 bg-white hover:bg-white border-2 border-customMain shadow-md shadow-customMain rounded-3xl active:scale-95 transition transition-transform hover:shadow-none">{{ $label }}</button>
   @endif
 
   {{-- 有効なメニューでない場合（status=0）は グレーアウトでアニメーションなし --}}
