@@ -31,6 +31,7 @@ class User extends Authenticatable {
         'user_id',
         'password',
         'role_id',
+        'name',
     ];
 
     /**
@@ -55,7 +56,11 @@ class User extends Authenticatable {
         ];
     }
 
-    public function expenceApp() {
-        return $this->belongsTo( 'App\ExpenceApp' );
+
+    public function expenceApps() //関数名は単数形がベスト
+    {
+        // UserモデルからExpenseAppモデルへの1対多のリレーションを定義
+        // nameカラムを使用して関連付け
+        return $this->hasMany(ExpenseApp::class, 'user_id', 'user_id');
     }
 }
