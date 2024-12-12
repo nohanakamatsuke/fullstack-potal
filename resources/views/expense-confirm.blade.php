@@ -1,4 +1,3 @@
-
 {{-- 確認画面　--}}
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -29,7 +28,7 @@
         <x-layouts.inside-confirm :validated="session('form_input', [])" :i="$i" />
       @endfor
       <section id="button-grp" class="flex space-x-7 mt-10 mb-5">
-        <button class="bg-red-400 w-20 shadow-md hover:shadow-none rounded-lg px-1 py-3 hover:bg-red-300 transition"><a
+        <button class="bg-red-400 w-22 shadow-md hover:shadow-none rounded-lg px-1 py-3 hover:bg-red-300 transition"><a
             href="{{ route('expense.form') }}">キャンセル</a></button>
         <button type="submit"
           class="bg-customMain w-20 rounded-lg shadow-md hover:shadow-none px-1 py-3 hover:bg-customHoverMain transition">申請</button>
