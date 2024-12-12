@@ -145,8 +145,9 @@ class ExpenseFormController extends MainController
 
         try {
             DB::beginTransaction();
+            // 現在のログインユーザーの情報を取得
+            $currentUser = auth()->user();
             $dates = $validated['date'] ?? [];
-            $names = $validated['name'] ?? [];
             $items = $validated['item'] ?? [];
             $purposes = $validated['purpose'] ?? [];
             $receiptFrontPaths = $validated['receipt_front'] ?? [];
@@ -157,8 +158,8 @@ class ExpenseFormController extends MainController
 
             foreach ($dates as $index => $date) {
                 ExpenseApp::create([
-                    'user_id' => auth()->id(),
-                    'name' => $name ?? '',
+                    'user_id' => $currentUser->user_id, //現在ログインしているユーザーIDを取得
+                    'name' => $currentUser->name, //現在ログインしているユーザーの名前を取得
                     'use_date' => $date,
                     'item' => $items[$index] ?? '',
                     'purpose' => $purposes[$index] ?? '',
