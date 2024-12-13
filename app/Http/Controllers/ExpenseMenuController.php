@@ -34,7 +34,7 @@ class ExpenseMenuController extends MainController {
 
             // 日付、項目、金額を整形して履歴に追加
             $key = date( 'Y/m/d', strtotime( $expense->use_date ) ).' '.
-            $expense->item.' ￥'.number_format( $expense->total_amount );
+            $expense->item . PHP_EOL.' ￥' . number_format( $expense->total_amount );
             $expenseHistory[ $key ] = $expense_status;
 
         }
