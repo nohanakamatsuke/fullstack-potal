@@ -25,9 +25,16 @@
     @endif
     <div class="mt-28 flex flex-col h-auto">
       <div class="grid grid-cols-2 xl:grid-cols-4 gap-8 sm:gap-10 lg:gap-20 text-lg md:text-2xl lg:text-3xl">
-        @foreach ($inHomeButton as $button)
-          <x-layouts.button :label="$button['label']" :status="$button['status']" :route="$button['route']" />
+        @foreach ($fillterdHomeButton as $button)
+          <x-layouts.button :label="$button['label']" :status="$button['status']" :route="$button['route']" :role="$button['role']" />
         @endforeach
+        @if ($role === 2)
+          <form action="{{ route('testcsv') }}" method="post">
+            @csrf
+            <button type="submit"
+              class='w-32 h-32 sm:w-48 sm:h-48 xl:w-56 xl:h-56 bg-white hover:bg-white border-2 border-customMain shadow-md shadow-customMain rounded-3xl active:scale-95 transition transition-transform hover:shadow-none'>CSV出力</button>
+          </form>
+        @endif
       </div>
     </div>
   </div>

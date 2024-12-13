@@ -6,19 +6,21 @@ namespace App\Http\Controllers;
 
 use App\Models\ExpenseApp;
 use Illuminate\Http\Request;
+use App\Models\ExpenseApp;
 
 class ExpenseMenuController extends MainController
 {
     public function show_expense_menu(Request $request)
     {
         // 親クラスから、メソッドを呼び出す
-        $this->show_home($request);
+        $this->show_home( $request );
 
         // compactは通常の変数しか扱えないので、$thisのプロパティをローカル変数に変換
         $name = $this->name;
         $user_id = $this->user_id;
 
         $inExpenseMenuButton = [
+
             ['label' => '申請', 'status' => 1, 'route' => 'expense-form'],
             ['label' => '履歴', 'status' => 1, 'route' => 'history_index'],
         ];
@@ -37,21 +39,20 @@ class ExpenseMenuController extends MainController
             $key = date('Y/m/d', strtotime($expense->use_date)).' '.
                 $expense->item.' ￥'.number_format($expense->total_amount);
             $expenseHistory[$key] = $expense_status;
+
         }
 
         //直前のページURLを取得
         $prevurl = url()->previous();
 
-        return view('expense-menu', compact('user_id', 'name', 'inExpenseMenuButton', 'expenseHistory', 'prevurl'));
+        return view( 'expense-menu', compact( 'user_id', 'name', 'inExpenseMenuButton', 'expenseHistory', 'prevurl', 'expenses' ) );
     }
 
-    public function create()
-    {
+    public function create() {
         // 経費申請フォーム
     }
 
-    public function history()
-    {
+    public function history() {
         // 経費一覧
     }
 }
