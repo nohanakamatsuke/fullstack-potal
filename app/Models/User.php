@@ -30,7 +30,6 @@ class User extends Authenticatable {
     protected $fillable = [
         'user_id',
         'password',
-        'role_id',
         'name',
     ];
 
@@ -55,8 +54,7 @@ class User extends Authenticatable {
             'password' => 'hashed',
         ];
     }
-
-
+  
     public function expenceApps() //関数名は単数形がベスト
     {
         // UserモデルからExpenseAppモデルへの1対多のリレーションを定義

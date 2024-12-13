@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CsvTestExportController;
 use App\Http\Controllers\ExpenseFormController;
+use App\Http\Controllers\ExpenseHistoryIndexController;
 use App\Http\Controllers\ExpenseMenuController;
 use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
@@ -39,7 +40,5 @@ Route::get('/test_comp', function () {
 Route::get('/csvMonitor', [CsvTestExportController::class, 'csvMonitor'])->name('csvMonitor');
 Route::post('/testcsv', [CsvTestExportController::class, 'exportCsv'])->name('testcsv');
 
-//画像のダウンロードようにテスト作成
-Route::get('/export/download_storage', [ExportController::class, 'download_storage'])->name('export.download_storage');
-Route::get('/export/download_response', [ExportController::class, 'download_response'])->name('export.download_response');
-Route::get('/export/csv_stream', [ExportController::class, 'csv_stream'])->name('export.csv_stream');
+// 経費申請履歴
+Route::get('/history_index', [ExpenseHistoryIndexController::class, 'history_index'])->middleware('auth')->name('history_index');
