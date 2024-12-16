@@ -45,7 +45,7 @@ Route::post('/testcsv', [CsvTestExportController::class, 'exportCsv'])->name('te
 Route::get('/history_index', [ExpenseHistoryIndexController::class, 'history_index'])->middleware('auth')->name('history_index');
 //Freee
 //認証用URL←認可コード取得
-Route::get('/auth/freee', [FreeeController::class, 'redirectToFreee']);
+Route::get('/auth/freee', [FreeeController::class, 'redirectToFreee'])->middleware('auth')->name('auth/freee');
 Route::get('/get-freeetoken', [FreeeController::class, 'handleCallback']);
 Route::get('/get-access-token', [FreeeController::class, 'getAccessToken']);
 Route::get('/get-information', [FreeeController::class, 'index']);

@@ -16,6 +16,12 @@ class ExpenseMenuController extends MainController {
         $name = $this->name;
         $user_id = $this->user_id;
 
+        // セッションにFreeeトークン情報が保存されていなければ、認証画面に飛ばす
+        if ( !session()->has( 'freee_access_token' ) || !session()->has( 'freee_refresh_token' ) ) {
+            return redirect()->route( 'auth/freee' );
+        }
+
+        // 経費メニュー内、ボタン情報の指定
         $inExpenseMenuButton = [
 
             [ 'label' => '申請', 'status' => 1, 'route' => 'expense-form' ],

@@ -100,7 +100,8 @@ class FreeeController extends MainController {
             throw $e;
         }
 
-        return view( 'expense-form', compact( 'user_id', 'name', 'prevurl' ) );
+        // 経費メニューに戻る
+        return redirect()->route( 'expense' );
     }
 
 }
