@@ -6,6 +6,7 @@ use App\Http\Controllers\ExpenseFormController;
 use App\Http\Controllers\ExpenseHistoryIndexController;
 use App\Http\Controllers\ExpenseMenuController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\FreeeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [MainController::class, 'show_home'])->middleware('auth')->name('home');
