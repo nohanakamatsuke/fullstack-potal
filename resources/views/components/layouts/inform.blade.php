@@ -31,15 +31,21 @@
       </div>
     </label>
 </section>
+
+{{--申請タイトルのエリア --}}
+<section>
+  <label for="title">申請タイトル</label>
+  <input type="textarea" id="title" name="title[]" value="{{ old('title.0') }}"
+    class="w-full py-2 px-2 mt-1 border rounded-lg pr-10 shadow" placeholder="Type here">
+</section>
+
 {{-- 使用年月日エリア --}}
 <section>
   <label for="date">使用年月日</label>
   <input type="date" id="date" name="date[]" value="{{ old('date.0') }}"
     class="w-full py-2 mt-1 border pr-5 pl-2 rounded-lg shadow">
-
-
-
 </section>
+
 {{-- 用途項目エリア --}}
 {{-- オプションにvalue追加、データベース構造要確認 --}}
 <section>
@@ -54,12 +60,14 @@
     <option value="others">その他</option>
   </select>
 </section>
+
 {{-- 用途の詳細エリア --}}
 <section>
   <label for="purpose">用途の詳細</label>
   <input type="textarea" id="purpose" name="purpose[]" value="{{ old('purpose.0') }}"
     class="w-full py-2 px-2 mt-1 border rounded-lg pr-10 shadow" placeholder="Type here">
 </section>
+
 {{-- 合計金額 --}}
 <section class="flex flex-col">
   <label for="total_amount">合計金額</label>

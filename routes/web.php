@@ -34,7 +34,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout.attempt'
 //APIトークン取得　現状使っていない
 Route::post('/expence-register', [ExpenseFormController::class, 'store'])->middleware('auth')->name('expence-register');
 Route::get('/test_comp', function () {
-    return view('test_comp');
+  return view('test_comp');
 })->name('test_comp');
 
 //テスト用csv出力
