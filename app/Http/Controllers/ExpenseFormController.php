@@ -42,7 +42,7 @@ class ExpenseFormController extends MainController
       $validated = $request->validate([
         'receipt_front.*' => 'nullable|file|mimes:jpeg,png,jpg|max:2048', // 画像のバリデーション
         'receipt_back.*' => 'nullable|file|mimes:jpeg,png,jpg|max:2048', // 画像のバリデーション
-        'title.*' => 'required|string|max:500',
+        'title.*' => 'required|string|max:50',
         'date.*' => 'required|date',
         'item.*' => 'required|string|max:255',
         'purpose.*' => 'required|string|max:500',
@@ -106,33 +106,33 @@ class ExpenseFormController extends MainController
   }
 
   //APIで登録する際のトークン取得用のメソッド　現状利用予定なし
-  public function store(Request $request)
-  {
-    $dates = $request->input('date');
-    $items = $request->input('item');
-    $purposes = $request->input('purpose');
-    $receiptFronts = $request->input('receipt_front');
-    $receiptBacks = $request->input('receipt_back');
-    $totalAmounts = $request->input('total_amount');
+  // public function store(Request $request)
+  // {
+  //   $dates = $request->input('date');
+  //   $items = $request->input('item');
+  //   $purposes = $request->input('purpose');
+  //   $receiptFronts = $request->input('receipt_front');
+  //   $receiptBacks = $request->input('receipt_back');
+  //   $totalAmounts = $request->input('total_amount');
 
-    foreach ($dates as $index => $date) {
-      ExpenseApp::create([
-        'user_id' => auth()->id(),
-        'use_date' => $date,
-        'item' => $items[$index] ?? '',
-        'purpose' => $purposes[$index] ?? '',
-        'receipt_front' => $receiptFrontPaths[$index] ?? '',
-        'receipt_back' => $receiptBackPaths[$index] ?? '',
-        'total_amount' => $totalAmounts[$index] ?? '',
-        'expense_app_line_templates' => 'default_template',
-        'account_items' => 'default_account',
-        'freee_sync_status' => 0,
-      ]);
-    }
+  //   foreach ($dates as $index => $date) {
+  //     ExpenseApp::create([
+  //       'user_id' => auth()->id(),
+  //       'use_date' => $date,
+  //       'item' => $items[$index] ?? '',
+  //       'purpose' => $purposes[$index] ?? '',
+  //       'receipt_front' => $receiptFrontPaths[$index] ?? '',
+  //       'receipt_back' => $receiptBackPaths[$index] ?? '',
+  //       'total_amount' => $totalAmounts[$index] ?? '',
+  //       'expense_app_line_templates' => 'default_template',
+  //       'account_items' => 'default_account',
+  //       'freee_sync_status' => 0,
+  //     ]);
+  //   }
 
-    // 登録完了後、確認ページにリダイレクト
-    return redirect()->route('test_comp');
-  }
+  //   // 登録完了後、確認ページにリダイレクト
+  //   return redirect()->route('test_comp');
+  // }
 
   //データベースへ直接経費申請するメソッド(csvファイル抽出用)
   public function expense_store(Request $request)
@@ -150,6 +150,7 @@ class ExpenseFormController extends MainController
       // 現在のログインユーザーの情報を取得
       $currentUser = auth()->user();
       $dates = $validated['date'] ?? [];
+      $titles = $validated['title'] ?? [];
       $items = $validated['item'] ?? [];
       $purposes = $validated['purpose'] ?? [];
       $receiptFrontPaths = $validated['receipt_front'] ?? [];
@@ -163,6 +164,7 @@ class ExpenseFormController extends MainController
           'user_id' => $currentUser->user_id, //現在ログインしているユーザーIDを取得
           'name' => $currentUser->name, //現在ログインしているユーザーの名前を取得
           'use_date' => $date,
+          'title' => $titles[$index] ?? '',
           'item' => $items[$index] ?? '',
           'purpose' => $purposes[$index] ?? '',
           'receipt_front' => $receiptFrontPaths[$index] ?? '',
@@ -293,7 +295,7 @@ class ExpenseFormController extends MainController
           'Authorization' => 'Bearer ' . session('freee_access_token'),
         ])->post('https://api.freee.co.jp/api/1/expense_applications', [
           'company_id' => $company,
-          'title' => $title[$index],
+          'title' => $titles[$index],
           'purchase_lines' => [$purchaseLine],
           'approval_flow_route_id' => $approval_route,
           'draft' => false, // falseで指定すると申請中で作成される
