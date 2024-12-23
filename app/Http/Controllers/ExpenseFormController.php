@@ -8,6 +8,7 @@ namespace App\Http\Controllers;
 use App\Models\ExpenseApp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;
 
 class ExpenseFormController extends MainController
@@ -159,7 +160,6 @@ class ExpenseFormController extends MainController
 
       foreach ($dates as $index => $date) {
         ExpenseApp::create([
-
           'user_id' => $currentUser->user_id, //現在ログインしているユーザーIDを取得
           'name' => $currentUser->name, //現在ログインしているユーザーの名前を取得
           'use_date' => $date,
@@ -179,46 +179,135 @@ class ExpenseFormController extends MainController
       DB::commit();
 
 
-      //freee経費申請
-      //freeeのcompanyId
-      $companyId = ENV('COMPANY_ID');
+      //freeeにファイルアップロードと経費申請
+      //freee会社ID
+      $company = env('COMPANY_ID');
+      //申請経路（指定なし）
+      $approval_route = env('APPROVAL_FREEE_ROUTE');
 
-      //freeeの経費申請作成のAPI
-      $url = 'https://api.freee.co.jp/api/1/expense_applications';
+      foreach ($dates as $index => $date) {
+        // 相対パスを絶対パスに変換、空だったらnullを返す
+        $absoluteReceiptFrontPath = !empty($receiptFrontPaths[$index])
+          ? storage_path('app/public/' . $receiptFrontPaths[$index])
+          : null;
+        $absoluteReceiptBackPath = !empty($receiptBackPaths[$index])
+          ? storage_path('app/public/' . $receiptBackPaths[$index])
+          : null;
 
-      //freeeに送るデータ生成
-      $data = [];
-      $data = [
-        'company_id' => $companyId,
-        'title' => "大阪出張",
-        'issue_date' => "2019-12-17",
-        'description' => "◯◯連携先ID: cx12345",
-        'section_id' => '',
-        'tag_ids' => [
-          202
-        ],
-        'purchase_lines' => [
-          'receipt_id' => 606,
-          'transaction_date' => "2019-12-17",
-          'sub_receipt_ids' => [
-            606
-          ],
+        // 領収書IDの初期化
+        $frontReceiptId = null;
+        $backReceiptId = null;
+
+        // フロントレシートの送信
+        if ($absoluteReceiptFrontPath && file_exists($absoluteReceiptFrontPath)) {
+          $frontResponse = Http::withHeaders([
+            'accept' => 'application/json',
+            'Authorization' => 'Bearer ' . session('freee_access_token'),
+          ])
+            ->attach(
+              'receipt',
+              fopen($absoluteReceiptFrontPath, 'r'),
+              basename($absoluteReceiptFrontPath)
+            )
+            ->post('https://api.freee.co.jp/api/1/receipts', [
+              'company_id' => $company,
+              'receipt_metadatum_issue_date' => $date,
+              'receipt_metadatum_amount' => $totalAmounts[$index] ?? 0,
+              'qualified_invoice' => 'qualified',
+              'document_type' => 'receipt',
+            ]);
+
+          if ($frontResponse->successful()) {
+            $frontReceiptId = $frontResponse['receipt']['id'];
+            logger()->info("Front receipt successfully sent to Freee.");
+          } else {
+            logger()->error("Failed to send front receipt to Freee for index {$index}", [
+              'status' => $frontResponse->status(),
+              'body' => $frontResponse->body(),
+            ]);
+          }
+        }
+
+        // バックレシートの送信
+        if ($absoluteReceiptBackPath && file_exists($absoluteReceiptBackPath)) {
+          $backResponse = Http::withHeaders([
+            'accept' => 'application/json',
+            'Authorization' => 'Bearer ' . session('freee_access_token'),
+          ])
+            ->attach(
+              'receipt',
+              fopen($absoluteReceiptBackPath, 'r'),
+              basename($absoluteReceiptBackPath)
+            )
+            ->post('https://api.freee.co.jp/api/1/receipts', [
+              'company_id' => $company,
+              'receipt_metadatum_issue_date' => $date,
+              'receipt_metadatum_amount' => $totalAmounts[$index] ?? 0,
+              'qualified_invoice' => 'qualified',
+              'document_type' => 'receipt',
+            ]);
+
+          if ($backResponse->successful()) {
+            $backReceiptId = $backResponse['receipt']['id'];
+            logger()->info("Back receipt successfully sent to Freee.");
+          } else {
+            logger()->error("Failed to send back receipt to Freee for index {$index}", [
+              'status' => $backResponse->status(),
+              'body' => $backResponse->body(),
+            ]);
+          }
+        }
+
+        // 経費科目判定
+        $itemId = match ($items[$index]) {
+          'train_commuter' => env('TRAIN_COMMUTER'),
+          'train_basic' => env('TRAIN_BASIC'),
+          'equipment' => env('EQUIPMENT'),
+          'advance_payment' => env('ADVANCE_PAYMENT'),
+          'meeting' => env('MEETING'),
+          default => env('OTHERS'),
+        };
+
+        // 経費申請の詳細の構築
+        $purchaseLine = [
+          'transaction_date' => $date,
           'expense_application_lines' => [
-            'description' => "交通費：新幹線往復（東京〜大阪）",
-            'amount' => 30000,
-            'expense_application_line_template_id' => 505
-          ]
-        ],
-        'approval_flow_route_id' => 1,
-        'approver_id' => 1,
-        'draft' => true,
-        'parent_id' => 2,
-        'segment_1_tag_id' => 1,
-        'segment_2_tag_id' => 2,
-        'segment_3_tag_id' => 3
-      ];
-      dd($data);
+            [
+              'description' => $purposes[$index], // 用途の詳細
+              'amount' => $totalAmounts[$index], // トータル金額
+              'expense_application_line_template_id' => $itemId, // 経費科目のID
+            ],
+          ],
+        ];
+        // 表面の領収書がある場合のみ設定
+        if ($frontReceiptId) {
+          $purchaseLine['receipt_id'] = $frontReceiptId;
+        }
+        // 裏面の領収書がある場合のみ設定
+        if ($backReceiptId) {
+          $purchaseLine['sub_receipt_ids'] = [$backReceiptId];
+        }
 
+        // 経費申請をFreeeに送信
+        $approvalResponse = Http::withHeaders([
+          'Authorization' => 'Bearer ' . session('freee_access_token'),
+        ])->post('https://api.freee.co.jp/api/1/expense_applications', [
+          'company_id' => $company,
+          'title' => $title[$index],
+          'purchase_lines' => [$purchaseLine],
+          'approval_flow_route_id' => $approval_route,
+          'draft' => false, // falseで指定すると申請中で作成される
+        ]);
+
+        if ($approvalResponse->successful()) {
+          logger()->info("Approval successfully sent to Freee for index {$index}.");
+        } else {
+          logger()->error("Failed to send approval to Freee for index {$index}", [
+            'status' => $approvalResponse->status(),
+            'body' => $approvalResponse->body(),
+          ]);
+        }
+      }
 
       session()->flash('success', '経費申請が登録されました！');
 
