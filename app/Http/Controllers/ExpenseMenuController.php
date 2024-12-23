@@ -26,7 +26,7 @@ class ExpenseMenuController extends MainController
     }
 
     //freeeのcompanyId
-    $companyId = ENV('COMPANY_ID');
+    $companyId = env('COMPANY_ID');
 
     //ログイン中のユーザーのfreeeID取得
     //ログインユーザー情報取得のエンドポイント
